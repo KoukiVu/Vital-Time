@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "921705899203",
+    "project_id": "vital-time-38d72",
+    "storage_bucket": "vital-time-38d72.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:921705899203:android:10c60582743569c62bae76",
+        "android_client_info": {
+          "package_name": "com.example.vitaltime"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfvoPEkMaNCuNHiMBkL1k8oGbmS6J_JSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
