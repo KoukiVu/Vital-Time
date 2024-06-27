@@ -16,8 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class FirstFragment extends Fragment {
-
-    private FragmentFirstBinding binding;
+    FragmentFirstBinding binding;
     FirebaseAuth auth;
     Button logoutButton;
     FirebaseUser user;
