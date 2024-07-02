@@ -11,16 +11,9 @@
             android:label="@string/first_fragment_label"
             tools:layout="@layout/fragment_first">
 
-        <action
-                android:id="@+id/action_FirstFragment_to_SecondFragment"
-                app:destination="@id/SecondFragment"/>
         <action android:id="@+id/action_FirstFragment_to_loginFragment" app:destination="@id/loginFragment"/>
+        <action android:id="@+id/action_FirstFragment_to_journalHome" app:destination="@id/journalHome"/>
     </fragment>
-    <fragment
-            android:id="@+id/SecondFragment"
-            android:name="com.example.vitaltime.SecondFragment"
-            android:label="@string/second_fragment_label"
-            tools:layout="@layout/fragment_second"/>
     <fragment
         android:id="@+id/moodAndJournal"
         android:name="com.example.vitaltime.moodAndJournal"
