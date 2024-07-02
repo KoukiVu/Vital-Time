@@ -54,8 +54,8 @@ public class JournalHome extends Fragment
 
 
         ///Adding to the Diary
-        DiaryEntry dayOne = new DiaryEntry(new Date(1719638573715L), "Day One Testing", "happy", "This is a test");
-        DiaryEntry dayTwo = new DiaryEntry(new Date(1719033962142L), "Day Two Testing", "sad", "This is a test");
+        DiaryEntry dayOne = new DiaryEntry(new Date(1719638573715L), "Day One Testing", "happyButton", "This is a test");
+        DiaryEntry dayTwo = new DiaryEntry(new Date(1719033962142L), "Day Two Testing", "sadButton", "This is a test");
         diaryBook.addDiaryEntry(dayOne);
         diaryBook.addDiaryEntry(dayTwo);
 

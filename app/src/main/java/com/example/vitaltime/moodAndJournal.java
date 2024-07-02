@@ -12,12 +12,16 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import com.example.vitaltime.databinding.MoodJournalBinding;
 
+import java.util.Vector;
+
 
 public class moodAndJournal extends Fragment {
 
     private MoodJournalBinding binding;
     private Button happyButton, sadButton, excitedButton, boredButton, frustratedButton, lovedButton,
             relaxedButton, lonelyButton, anxiousButton;
+    private Vector<Button> buttonMoods = new Vector<>();
+    private DiaryEntry receivedEntry;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -25,6 +29,7 @@ public class moodAndJournal extends Fragment {
         binding = MoodJournalBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
+
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -176,10 +181,31 @@ public class moodAndJournal extends Fragment {
 
 
     }
+
     private void colorChange(Button button, int color) {
 
         button.setBackgroundColor(color);
     }
+
+    private void setDiaryEntryValues(DiaryEntry entry) {
+        binding.entryTextView.setText(entry.getContent());
+        binding.entryNameView.setText(entry.getTitle());
+        binding.entryDateView.setText(entry.getDate().toString());
+//        for ( buttonMoods : button ){
+//            if (button.getId() == entry.getMood()){
+//                binding.button.setClicked(){
+//                    colorChange(button, color.DKGRAY);
+//                }
+//            }
+//            else {
+//                binding.button.setColor(){
+//                    colorChange(button, color.GRAY);
+//                }
+//            }
+//        }
+//
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
