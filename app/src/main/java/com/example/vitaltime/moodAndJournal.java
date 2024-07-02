@@ -20,8 +20,8 @@ public class moodAndJournal extends Fragment {
     private MoodJournalBinding binding;
     private Button happyButton, sadButton, excitedButton, boredButton, frustratedButton, lovedButton,
             relaxedButton, lonelyButton, anxiousButton;
-    private Vector<Button> buttonMoods = new Vector<>();
-    private DiaryEntry receivedEntry;
+    private final Vector<Button> buttonMoods = new Vector<>();
+    private DiaryEntry receivedEntry = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +43,20 @@ public class moodAndJournal extends Fragment {
         relaxedButton = view.findViewById(R.id.relaxedButton);
         lonelyButton = view.findViewById(R.id.lonelyButton);
         anxiousButton = view.findViewById(R.id.anxiousButton);
+
+        //Adding buttons to a vector for the method setDiaryEntryValues()
+        {
+            buttonMoods.add(happyButton);
+            buttonMoods.add(sadButton);
+            buttonMoods.add(excitedButton);
+            buttonMoods.add(boredButton);
+            buttonMoods.add(frustratedButton);
+            buttonMoods.add(lovedButton);
+            buttonMoods.add(relaxedButton);
+            buttonMoods.add(lonelyButton);
+            buttonMoods.add(anxiousButton);
+        }
+        setDiaryEntryValues(receivedEntry);
 
         binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,22 +202,15 @@ public class moodAndJournal extends Fragment {
     }
 
     private void setDiaryEntryValues(DiaryEntry entry) {
-        binding.entryTextView.setText(entry.getContent());
-        binding.entryNameView.setText(entry.getTitle());
-        binding.entryDateView.setText(entry.getDate().toString());
-//        for ( buttonMoods : button ){
-//            if (button.getId() == entry.getMood()){
-//                binding.button.setClicked(){
-//                    colorChange(button, color.DKGRAY);
-//                }
-//            }
-//            else {
-//                binding.button.setColor(){
-//                    colorChange(button, color.GRAY);
-//                }
-//            }
-//        }
-//
+        if (entry == null) { return; }
+         binding.entryTextView.setText(entry.getContent());
+         binding.entryNameView.setText(entry.getTitle());
+         binding.entryDateView.setText(entry.getDate().toString());
+         int moodId = Integer.parseInt(entry.getMood());
+         for (Button button : buttonMoods) {
+             if (button.getId() == moodId) { colorChange(button, Color.DKGRAY); }
+             else { colorChange(button, Color.GRAY); }
+         }
     }
 
     @Override
