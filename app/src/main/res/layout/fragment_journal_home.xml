@@ -12,7 +12,7 @@
 
         <Button
                 android:id="@+id/buttonNewEntry"
-                android:text="@string/new_entry"
+                android:text="No entry found"
                 android:textStyle="bold"
                 android:textSize="17sp"
                 android:layout_width="150dp"

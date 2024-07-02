@@ -1,62 +1,98 @@
 package com.example.vitaltime;
 
+import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.widget.CalendarView;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.navigation.fragment.NavHostFragment;
+import com.example.vitaltime.databinding.FragmentJournalHomeBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link JournalHome#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.Date;
+
 public class JournalHome extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private FragmentJournalHomeBinding binding;
+    DiaryBook diaryBook = new DiaryBook();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    @Override
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState
+    ) {
 
-    public JournalHome() {
-        // Required empty public constructor
+        binding = com.example.vitaltime.databinding.FragmentJournalHomeBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment JournalHome.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static JournalHome newInstance(String param1, String param2) {
-        JournalHome fragment = new JournalHome();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        CalendarView calView = binding.calendarView;
+        final Date[] dateDate = {new Date(calView.getDate())};
+        CardView entryCard = binding.CardView;
+
+        ///Adding to the Diary
+        DiaryEntry dayOne = new DiaryEntry(new Date(1719638573715L), "Day One Testing", "happy", "This is a test");
+        DiaryEntry dayTwo = new DiaryEntry(new Date(1719033962142L), "Day Two Testing", "sad", "This is a test");
+        diaryBook.addDiaryEntry(dayOne);
+        diaryBook.addDiaryEntry(dayTwo);
+
+
+
+        binding.buttonNewEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(JournalHome.this)
+                        .navigate(R.id.action_journalHome_to_moodAndJournal);
+            }
+        });
+
+        calView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                Calendar selectedDate = Calendar.getInstance();
+                selectedDate.set(year, month, dayOfMonth);
+
+                TextView titleText = binding.titleView;
+                TextView dateText = binding.dateView;
+
+                dateDate[0] = new Date(selectedDate.getTimeInMillis());
+                DiaryEntry selectedEntry = diaryBook.getEntryKey(dateDate[0]);
+
+                if (selectedEntry != null){
+                    titleText.setText(selectedEntry.getTitle());
+                    dateText.setText(selectedEntry.getDate().toString());
+                    entryCard.setClickable(true);
+                }
+                else {
+                    titleText.setText("No entry found");
+                    dateText.setText(dateDate[0].toString());
+                    entryCard.setClickable(false);
+                }
+
+            }
+        });
+
+        entryCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               NavHostFragment.findNavController(JournalHome.this)
+                       .navigate(R.id.action_journalHome_to_moodAndJournal);
+            }
+        });
+
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_journal_home, container, false);
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

@@ -9,31 +9,21 @@
             android:id="@+id/FirstFragment"
             android:name="com.example.vitaltime.FirstFragment"
             android:label="@string/first_fragment_label"
-            tools:layout="@layout/fragment_first">
-
-        <action
-                android:id="@+id/action_FirstFragment_to_moodAndJournal"
-                app:destination="@id/moodAndJournal"/>
-    </fragment>
+            tools:layout="@layout/fragment_first"/>
     <fragment
             android:id="@+id/SecondFragment"
             android:name="com.example.vitaltime.SecondFragment"
             android:label="@string/second_fragment_label"
-            tools:layout="@layout/fragment_second">
-
-        <action
-                android:id="@+id/action_SecondFragment_to_moodAndJournal"
-                app:destination="@id/moodAndJournal"/>
-    </fragment>
+            tools:layout="@layout/fragment_second"/>
     <fragment
         android:id="@+id/moodAndJournal"
         android:name="com.example.vitaltime.moodAndJournal"
         android:label="Diary"
         tools:layout="@layout/mood_journal">
-
-        <action
-                android:id="@+id/action_moodAndJournal_to_SecondFragment"
-                app:destination="@id/SecondFragment"
-                />
+        <action android:id="@+id/action_moodAndJournal_to_journalHome" app:destination="@id/journalHome"/>
+    </fragment>
+    <fragment android:id="@+id/journalHome" android:name="com.example.vitaltime.JournalHome"
+              android:label="fragment_journal_home" tools:layout="@layout/fragment_journal_home">
+        <action android:id="@+id/action_journalHome_to_moodAndJournal" app:destination="@id/moodAndJournal"/>
     </fragment>
 </navigation>
