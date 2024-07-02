@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content"
+                                                   android:orientation="vertical"
+                                                   android:padding="16dp">
+    <EditText
+            android:id="@+id/editTextTodo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter To-Do"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/buttonSetTime"
+            android:layout_marginBottom="16dp"/>
+
+    <Button android:layout_width="0dp" android:layout_height="wrap_content"
+            android:id="@+id/buttonSetTime"
+            android:text="Set Time"
+            app:layout_constraintTop_toBottomOf="@id/editTextTodo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/buttonAdd"
+            android:layout_margin="16dp"/>
+
+    <Button android:layout_width="0dp" android:layout_height="wrap_content"
+            android:id="@+id/buttonAdd"
+            android:text="Add"
+            app:layout_constraintTop_toBottomOf="@id/buttonSetTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
