@@ -52,4 +52,7 @@
     <string name="confirm">Confirm</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="send_reset_email">Send Reset Email</string>
+    <string name="tasks">Tasks</string>
+    <string name="diary">Diary</string>
+    <string name="vitaltime">VitalTime</string>
 </resources>

@@ -4,6 +4,10 @@
       tools:context="com.example.vitaltime.MainActivity">
     <item android:id="@+id/action_settings"
           android:title="@string/action_settings"
-          android:orderInCategory="100"
+          android:orderInCategory="0"
           app:showAsAction="never"/>
+    <item android:id="@+id/logout"
+          android:title="@string/logout"
+          android:orderInCategory="100"/>
+
 </menu>
