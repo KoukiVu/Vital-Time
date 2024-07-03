@@ -2,6 +2,7 @@ package com.example.vitaltime;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -60,6 +61,7 @@ public class FirstFragment extends Fragment {
             }
         });
     }
+    
 
     @Override
     public void onDestroyView() {
