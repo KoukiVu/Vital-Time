@@ -2,6 +2,7 @@ package com.example.vitaltime;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -51,15 +52,8 @@ public class FirstFragment extends Fragment {
                 NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.loginFragment);
             }
         });
-
-        binding.journalButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.journalHome);
-            }
-        });
     }
+    
 
     @Override
     public void onDestroyView() {
