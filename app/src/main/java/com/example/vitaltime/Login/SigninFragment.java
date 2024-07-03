@@ -36,16 +36,6 @@ public class SigninFragment extends Fragment {
     FirebaseAuth mAuth;
     TextView textView;
 
-    //checks to see if user is already signed in
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            NavHostFragment.findNavController(SigninFragment.this).navigate(R.id.action_signinFragment_to_FirstFragment);
-        }
-    }
 
     public SigninFragment() {
         // Required empty public constructor

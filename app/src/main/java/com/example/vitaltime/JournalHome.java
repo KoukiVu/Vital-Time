@@ -2,23 +2,33 @@ package com.example.vitaltime;
 
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.view.*;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import androidx.navigation.fragment.NavHostFragment;
 import com.example.vitaltime.databinding.FragmentJournalHomeBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 
-public class JournalHome extends Fragment {
+public class JournalHome extends Fragment
+        implements BottomNavigationView.OnNavigationItemSelectedListener{
+
+    BottomNavigationView bottomNavigationView;
 
     private FragmentJournalHomeBinding binding;
     DiaryBook diaryBook = new DiaryBook();
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(
@@ -27,6 +37,7 @@ public class JournalHome extends Fragment {
     ) {
 
         binding = com.example.vitaltime.databinding.FragmentJournalHomeBinding.inflate(inflater, container, false);
+        bottomNavigationView = binding.bottomNavigationView;
         return binding.getRoot();
 
     }
@@ -37,6 +48,10 @@ public class JournalHome extends Fragment {
         CalendarView calView = binding.calendarView;
         final Date[] dateDate = {new Date(calView.getDate())};
         CardView entryCard = binding.CardView;
+
+        bottomNavigationView.setSelectedItemId(R.id.diary);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
 
         ///Adding to the Diary
         DiaryEntry dayOne = new DiaryEntry(new Date(1719638573715L), "Day One Testing", "happy", "This is a test");
@@ -94,5 +109,34 @@ public class JournalHome extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
+        if (menuItem.getItemId() == R.id.tasks) {
+            return true;
+        } else if (menuItem.getItemId() == R.id.home) {
+            NavHostFragment.findNavController(JournalHome.this).navigate(R.id.homeFragment);
+            return true;
+        } else
+            return false;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.logout) {
+            FirebaseAuth.getInstance().signOut();
+            NavHostFragment.findNavController(JournalHome.this).navigate(R.id.loginFragment);
+            return true;
+        } else if (item.getItemId() == R.id.action_settings){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

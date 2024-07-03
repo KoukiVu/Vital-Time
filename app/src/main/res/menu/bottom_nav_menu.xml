@@ -5,9 +5,9 @@
             android:title="@string/tasks"
             android:icon="@mipmap/tasks_icon"/>
     <item
-        android:id="@+id/home"
-        android:title="Home"
-        android:icon="@mipmap/home_icon"/>
+            android:id="@+id/home"
+            android:title="@string/home"
+            android:icon="@mipmap/home_icon"/>
     <item
             android:id="@+id/diary"
             android:title="@string/diary"
