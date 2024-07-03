@@ -10,10 +10,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.navigation.fragment.NavHostFragment;
 import com.example.vitaltime.databinding.FragmentJournalHomeBinding;
 
 import java.util.Date;
+
+import static android.view.View.VISIBLE;
 
 public class JournalHome extends Fragment {
 
@@ -83,8 +86,14 @@ public class JournalHome extends Fragment {
         entryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               NavHostFragment.findNavController(JournalHome.this)
-                       .navigate(R.id.action_journalHome_to_moodAndJournal);
+                FragmentContainerView entryMoodJournal = binding.fragmentContainerView;
+                entryMoodJournal.setVisibility(VISIBLE);
+                DiaryEntry selectedEntry = diaryBook.getEntryKey(dateDate[0]);
+                moodAndJournal newFragment = moodAndJournal.newInstance(selectedEntry);
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragmentContainerView, newFragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
