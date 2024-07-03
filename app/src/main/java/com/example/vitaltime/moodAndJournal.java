@@ -43,7 +43,7 @@ public class moodAndJournal extends Fragment {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(moodAndJournal.this)
-                        .navigate(R.id.action_moodAndJournal_to_SecondFragment);
+                        .navigate(R.id.journalHome);
             }
         });
 

@@ -56,4 +56,5 @@
     <string name="diary">Diary</string>
     <string name="vitaltime">VitalTime</string>
     <string name="new_entry">+ New Entry</string>
+    <string name="home">Home</string>
 </resources>

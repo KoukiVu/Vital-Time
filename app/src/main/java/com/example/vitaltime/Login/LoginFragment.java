@@ -40,7 +40,7 @@ public class LoginFragment extends Fragment {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_FirstFragment);
+            NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.homeFragment);
         }
     }
 
@@ -122,7 +122,7 @@ public class LoginFragment extends Fragment {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getActivity(), "Login successful!",
                                             Toast.LENGTH_SHORT).show();
-                                    NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_FirstFragment);
+                                    NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.homeFragment);
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(getActivity(), "Username or password incorrect.",
