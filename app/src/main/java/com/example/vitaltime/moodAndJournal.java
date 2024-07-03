@@ -84,7 +84,7 @@ public class moodAndJournal extends Fragment {
                 colorChange(lonelyButton, Color.GRAY);
                 colorChange(anxiousButton, Color.GRAY);
                 colorChange(relaxedButton, Color.GRAY);
-                colorChange(sadButton, Color.DKGRAY);
+                colorChange(sadButton, Color.LTGRAY);
             }
         });
         binding.happyButton.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +98,7 @@ public class moodAndJournal extends Fragment {
                 colorChange(lonelyButton, Color.GRAY);
                 colorChange(anxiousButton, Color.GRAY);
                 colorChange(relaxedButton, Color.GRAY);
-                colorChange(happyButton, Color.DKGRAY);
+                colorChange(happyButton, Color.LTGRAY);
             }
         });
         binding.boredButton.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +112,7 @@ public class moodAndJournal extends Fragment {
                 colorChange(lonelyButton, Color.GRAY);
                 colorChange(anxiousButton, Color.GRAY);
                 colorChange(relaxedButton, Color.GRAY);
-                colorChange(boredButton, Color.DKGRAY);
+                colorChange(boredButton, Color.LTGRAY);
             }
         });
         binding.excitedButton.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +126,7 @@ public class moodAndJournal extends Fragment {
                 colorChange(lonelyButton, Color.GRAY);
                 colorChange(anxiousButton, Color.GRAY);
                 colorChange(relaxedButton, Color.GRAY);
-                colorChange(excitedButton, Color.DKGRAY);
+                colorChange(excitedButton, Color.LTGRAY);
             }
         });
         binding.frustratedButton.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +140,7 @@ public class moodAndJournal extends Fragment {
                 colorChange(lonelyButton, Color.GRAY);
                 colorChange(anxiousButton, Color.GRAY);
                 colorChange(relaxedButton, Color.GRAY);
-                colorChange(frustratedButton, Color.DKGRAY);
+                colorChange(frustratedButton, Color.LTGRAY);
             }
         });
         binding.lovedButton.setOnClickListener(new View.OnClickListener() {
@@ -154,7 +154,7 @@ public class moodAndJournal extends Fragment {
                 colorChange(lonelyButton, Color.GRAY);
                 colorChange(anxiousButton, Color.GRAY);
                 colorChange(relaxedButton, Color.GRAY);
-                colorChange(lovedButton, Color.DKGRAY);
+                colorChange(lovedButton, Color.LTGRAY);
             }
         });
         binding.lonelyButton.setOnClickListener(new View.OnClickListener() {
@@ -168,7 +168,7 @@ public class moodAndJournal extends Fragment {
                 colorChange(lovedButton, Color.GRAY);
                 colorChange(anxiousButton, Color.GRAY);
                 colorChange(relaxedButton, Color.GRAY);
-                colorChange(lonelyButton, Color.DKGRAY);
+                colorChange(lonelyButton, Color.LTGRAY);
             }
         });
         binding.relaxedButton.setOnClickListener(new View.OnClickListener() {
@@ -182,7 +182,7 @@ public class moodAndJournal extends Fragment {
                 colorChange(lovedButton, Color.GRAY);
                 colorChange(anxiousButton, Color.GRAY);
                 colorChange(lonelyButton, Color.GRAY);
-                colorChange(relaxedButton, Color.DKGRAY);
+                colorChange(relaxedButton, Color.LTGRAY);
             }
         });
         binding.anxiousButton.setOnClickListener(new View.OnClickListener() {
@@ -196,7 +196,7 @@ public class moodAndJournal extends Fragment {
                 colorChange(lovedButton, Color.GRAY);
                 colorChange(lonelyButton, Color.GRAY);
                 colorChange(relaxedButton, Color.GRAY);
-                colorChange(anxiousButton, Color.DKGRAY);
+                colorChange(anxiousButton, Color.LTGRAY);
             }
         });
 
