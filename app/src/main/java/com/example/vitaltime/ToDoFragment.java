@@ -3,9 +3,7 @@ package com.example.vitaltime;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.app.TimePickerDialog;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -18,12 +16,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.navigation.fragment.NavHostFragment;
 import com.example.vitaltime.databinding.FragmentTodoBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import org.jetbrains.annotations.NotNull;
 
-public class ToDoFragment extends Fragment implements TodoAdapter.OnTodoItemListener {
+public class ToDoFragment extends Fragment implements TodoAdapter.OnTodoItemListener,
+        BottomNavigationView.OnNavigationItemSelectedListener {
+
+    BottomNavigationView bottomNavigationView;
 private FragmentTodoBinding binding;
     private TodoManager todoManager;
     private TodoAdapter todoAdapter;
     private boolean TodoSwitch;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -31,12 +42,17 @@ private FragmentTodoBinding binding;
     ) {
 
         binding = FragmentTodoBinding.inflate(inflater, container, false);
+        bottomNavigationView = binding.bottomNavigationView;
         return binding.getRoot();
 
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        bottomNavigationView.setSelectedItemId(R.id.tasks);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
         TodoSwitch = true;
         todoManager = new TodoManager();
         todoAdapter = new TodoAdapter(todoManager.getTodos(),todoManager.getFinishedTodos(),this);
@@ -183,6 +199,36 @@ private FragmentTodoBinding binding;
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
+        if (menuItem.getItemId() == R.id.diary) {
+            NavHostFragment.findNavController(ToDoFragment.this).navigate(R.id.journalHome);
+            return true;
+        } else if (menuItem.getItemId() == R.id.home) {
+            NavHostFragment.findNavController(ToDoFragment.this).navigate(R.id.homeFragment);
+            return true;
+        } else
+            return false;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.logout) {
+            FirebaseAuth.getInstance().signOut();
+            NavHostFragment.findNavController(ToDoFragment.this).navigate(R.id.loginFragment);
+            return true;
+        } else if (item.getItemId() == R.id.action_settings){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 

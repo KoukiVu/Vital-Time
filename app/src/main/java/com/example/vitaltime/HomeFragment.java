@@ -46,6 +46,7 @@ public class HomeFragment extends Fragment
     @Override
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.tasks) {
+            NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.toDoFragment);
             return true;
         } else if (menuItem.getItemId() == R.id.diary) {
             NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.journalHome);
