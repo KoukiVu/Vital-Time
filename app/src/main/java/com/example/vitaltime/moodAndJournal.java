@@ -212,9 +212,9 @@ public class moodAndJournal extends Fragment {
          binding.entryTextView.setText(entry.getContent());
          binding.entryNameView.setText(entry.getTitle());
          binding.entryDateView.setText(entry.getDate().toString());
-         int moodId = Integer.parseInt(entry.getMood());
+         String moodId =entry.getMood();
          for (Button button : buttonMoods) {
-             if (button.getId() == moodId) { colorChange(button, Color.DKGRAY); }
+             if (getResources().getResourceEntryName(button.getId()).equals(moodId)) { colorChange(button, Color.DKGRAY); }
              else { colorChange(button, Color.GRAY); }
          }
     }

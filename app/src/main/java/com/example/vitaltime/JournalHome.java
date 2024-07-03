@@ -86,14 +86,14 @@ public class JournalHome extends Fragment {
         entryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentContainerView entryMoodJournal = binding.fragmentContainerView;
-                entryMoodJournal.setVisibility(VISIBLE);
                 DiaryEntry selectedEntry = diaryBook.getEntryKey(dateDate[0]);
                 moodAndJournal newFragment = moodAndJournal.newInstance(selectedEntry);
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragmentContainerView, newFragment)
-                        .addToBackStack(null)
-                        .commit();
+                NavHostFragment.findNavController(JournalHome.this)
+                        .navigate(R.id.action_journalHome_to_moodAndJournal);
+               // getParentFragmentManager().beginTransaction()
+                //        .replace(R.id.fragmentContainerView, newFragment)
+                //        .addToBackStack(null)
+                 //       .commit();
             }
         });
 
