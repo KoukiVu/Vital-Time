@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import com.example.vitaltime.databinding.MoodJournalBinding;
 
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 
@@ -211,13 +212,18 @@ public class moodAndJournal extends Fragment {
     }
 
     private void setDiaryEntryValues(DiaryEntry entry) {
-         binding.entryTextView.setText(entry.getContent());
-         binding.entryNameView.setText(entry.getTitle());
-         binding.entryDateView.setText(entry.getDate().toString());
-         String moodId =entry.getMood();
+
+        binding.entryTextView.setText(entry.getTitle()); //Entry title
+        binding.editTextDiaryContent.setText(entry.getContent()); //Entry text
+
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMMM d, yyyy");
+        String formattedDate = sdf.format(entry.getDate());
+         binding.entryDateView.setText(formattedDate); //Entry Date
+
+         String moodId = entry.getMood();
          for (Button button : buttonMoods) {
-             if (getResources().getResourceEntryName(button.getId()).equals(moodId)) { colorChange(button, Color.DKGRAY); }
-             else { colorChange(button, Color.GRAY); }
+             if (getResources().getResourceEntryName(button.getId()).equals(moodId)) { colorChange(button, Color.LTGRAY); }
+             else { colorChange(button, Color.DKGRAY); }
          }
     }
 
