@@ -47,6 +47,7 @@ public class JournalHome extends Fragment
         super.onViewCreated(view, savedInstanceState);
         CalendarView calView = binding.calendarView;
         final Date[] dateDate = {new Date(calView.getDate())};
+        final DiaryEntry[] selectedEntry = {null};
         CardView entryCard = binding.CardView;
 
         bottomNavigationView.setSelectedItemId(R.id.diary);
@@ -79,11 +80,11 @@ public class JournalHome extends Fragment
                 TextView dateText = binding.dateView;
 
                 dateDate[0] = new Date(selectedDate.getTimeInMillis());
-                DiaryEntry selectedEntry = diaryBook.getEntryKey(dateDate[0]);
+                selectedEntry[0] = diaryBook.getEntryKey(dateDate[0]);
 
-                if (selectedEntry != null){
-                    titleText.setText(selectedEntry.getTitle());
-                    dateText.setText(selectedEntry.getDate().toString());
+                if (selectedEntry[0] != null){
+                    titleText.setText(selectedEntry[0].getTitle());
+                    dateText.setText(selectedEntry[0].getDate().toString());
                     entryCard.setClickable(true);
                 }
                 else {
@@ -98,8 +99,11 @@ public class JournalHome extends Fragment
         entryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               NavHostFragment.findNavController(JournalHome.this)
-                       .navigate(R.id.action_journalHome_to_moodAndJournal);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("selectedEntry", selectedEntry[0]);
+                NavHostFragment.findNavController(JournalHome.this)
+                        .navigate(R.id.action_journalHome_to_moodAndJournal, bundle);
+
             }
         });
 
