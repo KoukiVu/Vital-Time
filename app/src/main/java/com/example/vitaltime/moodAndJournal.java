@@ -13,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.vitaltime.databinding.MoodJournalBinding;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 
 
@@ -22,14 +23,7 @@ public class moodAndJournal extends Fragment {
     private Button happyButton, sadButton, excitedButton, boredButton, frustratedButton, lovedButton,
             relaxedButton, lonelyButton, anxiousButton;
     private final Vector<Button> buttonMoods = new Vector<>();
-    private DiaryEntry receivedEntry = null;
-
-    public static moodAndJournal newInstance(DiaryEntry entry) {
-        moodAndJournal fragment = new moodAndJournal();
-        fragment.receivedEntry = entry;
-        return fragment;
-    }
-
+    private Button selectedButton = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,7 +31,6 @@ public class moodAndJournal extends Fragment {
         binding = MoodJournalBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
-
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -68,83 +61,94 @@ public class moodAndJournal extends Fragment {
             DiaryEntry receivedEntry = getArguments().getParcelable("selectedEntry");
             setDiaryEntryValues(receivedEntry);
         }
-        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
+        binding.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DiaryEntry saveEntry = SaveDiaryEntry();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("newEntry", saveEntry);
                 NavHostFragment.findNavController(moodAndJournal.this)
-                        .navigate(R.id.action_moodAndJournal_to_journalHome);
+                        .navigate(R.id.action_moodAndJournal_to_journalHome, bundle);
             }
         });
 
-        binding.sadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                moodClicked(sadButton);
-            }
-        });
-        binding.happyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                moodClicked(happyButton);
-            }
-        });
-        binding.boredButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                moodClicked(boredButton);
-            }
-        });
-        binding.excitedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-             moodClicked(excitedButton);
-            }
-        });
-        binding.frustratedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                moodClicked(frustratedButton);
-            }
-        });
-        binding.lovedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                moodClicked(lovedButton);
-            }
-        });
-        binding.lonelyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                moodClicked(lonelyButton);
-            }
-        });
-        binding.relaxedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                moodClicked(relaxedButton);
-            }
-        });
-        binding.anxiousButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                moodClicked(anxiousButton);
-            }
-        });
-
+        //Mood button methods
+        {
+            binding.sadButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    moodClicked(sadButton);
+                }
+            });
+            binding.happyButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    moodClicked(happyButton);
+                }
+            });
+            binding.boredButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    moodClicked(boredButton);
+                }
+            });
+            binding.excitedButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    moodClicked(excitedButton);
+                }
+            });
+            binding.frustratedButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    moodClicked(frustratedButton);
+                }
+            });
+            binding.lovedButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    moodClicked(lovedButton);
+                }
+            });
+            binding.lonelyButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    moodClicked(lonelyButton);
+                }
+            });
+            binding.relaxedButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    moodClicked(relaxedButton);
+                }
+            });
+            binding.anxiousButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    moodClicked(anxiousButton);
+                }
+            });
+        }
 
     }
 
+    //Changes the color of a button
     private void colorChange(Button button, int color) {
 
         button.setBackgroundColor(color);
     }
 
+    //Implementation of when a mood is clicked
     private void moodClicked(Button clickedButton) {
         for (Button button : buttonMoods){
-            colorChange(button, button == clickedButton ? Color.LTGRAY : Color.DKGRAY);
+            if (button == clickedButton) {
+                colorChange(button, Color.LTGRAY);
+                selectedButton = button;
+            } else {  colorChange(button, Color.DKGRAY); }
         }
     }
 
+    //Opens a Diary Entry data
     private void setDiaryEntryValues(DiaryEntry entry) {
 
         binding.entryTextView.setText(entry.getTitle()); //Entry title
@@ -156,9 +160,18 @@ public class moodAndJournal extends Fragment {
 
          String moodId = entry.getMood();
          for (Button button : buttonMoods) {
-             if (getResources().getResourceEntryName(button.getId()).equals(moodId)) { colorChange(button, Color.LTGRAY); }
-             else { colorChange(button, Color.DKGRAY); }
+             if (getResources().getResourceEntryName(button.getId()).equals(moodId)) { moodClicked(button); }
          }
+    }
+
+    //Saves the current data
+    private DiaryEntry SaveDiaryEntry() {
+        String title = String.valueOf(binding.entryTextView.getText());
+        Date date = new Date();
+        String content = String.valueOf(binding.editTextDiaryContent.getText());
+        String mood = getResources().getResourceEntryName(selectedButton.getId());
+        DiaryEntry newEntry = new DiaryEntry(date, title, mood, content);
+        return newEntry;
     }
 
     @Override

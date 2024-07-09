@@ -60,7 +60,11 @@ public class JournalHome extends Fragment
         diaryBook.addDiaryEntry(dayOne);
         diaryBook.addDiaryEntry(dayTwo);
 
-
+        //Adding a new saved DiaryEntry
+        if (getArguments() != null) {
+            DiaryEntry receivedEntry = getArguments().getParcelable("newEntry");
+            diaryBook.addDiaryEntry(receivedEntry);
+        }
 
         binding.buttonNewEntry.setOnClickListener(new View.OnClickListener() {
             @Override
