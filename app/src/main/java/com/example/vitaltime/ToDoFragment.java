@@ -20,10 +20,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import org.jetbrains.annotations.NotNull;
 
-public class ToDoFragment extends Fragment implements TodoAdapter.OnTodoItemListener,
-        BottomNavigationView.OnNavigationItemSelectedListener {
+public class ToDoFragment extends BaseFragment
+        implements TodoAdapter.OnTodoItemListener {
 
-    BottomNavigationView bottomNavigationView;
+
 private FragmentTodoBinding binding;
     private TodoManager todoManager;
     private TodoAdapter todoAdapter;
@@ -199,36 +199,6 @@ private FragmentTodoBinding binding;
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
-        if (menuItem.getItemId() == R.id.diary) {
-            NavHostFragment.findNavController(ToDoFragment.this).navigate(R.id.journalHome);
-            return true;
-        } else if (menuItem.getItemId() == R.id.home) {
-            NavHostFragment.findNavController(ToDoFragment.this).navigate(R.id.homeFragment);
-            return true;
-        } else
-            return false;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_main, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.logout) {
-            FirebaseAuth.getInstance().signOut();
-            NavHostFragment.findNavController(ToDoFragment.this).navigate(R.id.loginFragment);
-            return true;
-        } else if (item.getItemId() == R.id.action_settings){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
 
