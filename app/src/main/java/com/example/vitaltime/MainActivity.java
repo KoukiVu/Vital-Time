@@ -22,7 +22,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity
      {
-    private ThemeViewModel themeViewModel;
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
     BottomNavigationView bottomNavigationView;
@@ -30,16 +29,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        themeViewModel = new ViewModelProvider(this).get(ThemeViewModel.class);
-//        themeViewModel.getCurrentTheme().observe(this, theme -> {
-//            setTheme(theme);
-//            if (savedInstanceState == null) {
-//                // Only recreate if it's not a configuration change
-//                recreate();
-//            }
-//        });
-        setTheme(R.style.Theme_VitalTime_Dark);
-
+        setTheme(R.style.Theme_VitalTime);
         super.onCreate(savedInstanceState);
         FirebaseApp.initializeApp(this);
 
