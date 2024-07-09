@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.*;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 public class BaseFragment extends Fragment
 implements  BottomNavigationView.OnNavigationItemSelectedListener {
     BottomNavigationView bottomNavigationView;
+    ThemeViewModel themeViewModel;
 
     public BaseFragment() {
         // Required empty public constructor
@@ -32,6 +34,7 @@ implements  BottomNavigationView.OnNavigationItemSelectedListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        themeViewModel = new ViewModelProvider(requireActivity()).get(ThemeViewModel.class);
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -71,6 +74,14 @@ implements  BottomNavigationView.OnNavigationItemSelectedListener {
             NavHostFragment.findNavController(this).navigate(R.id.loginFragment);
             return true;
         } else if (item.getItemId() == R.id.dark_mode){
+            boolean darkMode = !item.isChecked();
+            item.setChecked(darkMode);
+            int theme;
+            if (darkMode) theme = R.style.Theme_VitalTime_Dark;
+            else theme = R.style.Theme_VitalTime;
+            //int theme = darkMode ? com.google.android.material.R.style.Theme_Material3_Dark : R.style.Theme_VitalTime;
+            themeViewModel.changeTheme(theme);
+
             return true;
         } else
             return super.onOptionsItemSelected(item);
