@@ -63,8 +63,10 @@ public class moodAndJournal extends Fragment {
             buttonMoods.add(lonelyButton);
             buttonMoods.add(anxiousButton);
         }
-        if (receivedEntry != null) { setDiaryEntryValues(receivedEntry); } //Sets the values if an entry was passed in
-
+        if (getArguments() != null) {
+            DiaryEntry receivedEntry = getArguments().getParcelable("selectedEntry");
+            setDiaryEntryValues(receivedEntry);
+        }
         binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
