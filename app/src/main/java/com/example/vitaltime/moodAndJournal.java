@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import com.example.vitaltime.databinding.MoodJournalBinding;
 
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 
@@ -63,8 +64,10 @@ public class moodAndJournal extends Fragment {
             buttonMoods.add(lonelyButton);
             buttonMoods.add(anxiousButton);
         }
-        if (receivedEntry != null) { setDiaryEntryValues(receivedEntry); } //Sets the values if an entry was passed in
-
+        if (getArguments() != null) {
+            DiaryEntry receivedEntry = getArguments().getParcelable("selectedEntry");
+            setDiaryEntryValues(receivedEntry);
+        }
         binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,127 +79,55 @@ public class moodAndJournal extends Fragment {
         binding.sadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                colorChange(lovedButton, Color.GRAY);
-                colorChange(happyButton, Color.GRAY);
-                colorChange(boredButton, Color.GRAY);
-                colorChange(excitedButton, Color.GRAY);
-                colorChange(frustratedButton, Color.GRAY);
-                colorChange(lonelyButton, Color.GRAY);
-                colorChange(anxiousButton, Color.GRAY);
-                colorChange(relaxedButton, Color.GRAY);
-                colorChange(sadButton, Color.LTGRAY);
+                moodClicked(sadButton);
             }
         });
         binding.happyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                colorChange(sadButton, Color.GRAY);
-                colorChange(lovedButton, Color.GRAY);
-                colorChange(boredButton, Color.GRAY);
-                colorChange(excitedButton, Color.GRAY);
-                colorChange(frustratedButton, Color.GRAY);
-                colorChange(lonelyButton, Color.GRAY);
-                colorChange(anxiousButton, Color.GRAY);
-                colorChange(relaxedButton, Color.GRAY);
-                colorChange(happyButton, Color.LTGRAY);
+                moodClicked(happyButton);
             }
         });
         binding.boredButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                colorChange(sadButton, Color.GRAY);
-                colorChange(happyButton, Color.GRAY);
-                colorChange(lovedButton, Color.GRAY);
-                colorChange(excitedButton, Color.GRAY);
-                colorChange(frustratedButton, Color.GRAY);
-                colorChange(lonelyButton, Color.GRAY);
-                colorChange(anxiousButton, Color.GRAY);
-                colorChange(relaxedButton, Color.GRAY);
-                colorChange(boredButton, Color.LTGRAY);
+                moodClicked(boredButton);
             }
         });
         binding.excitedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                colorChange(sadButton, Color.GRAY);
-                colorChange(happyButton, Color.GRAY);
-                colorChange(boredButton, Color.GRAY);
-                colorChange(frustratedButton, Color.GRAY);
-                colorChange(lovedButton, Color.GRAY);
-                colorChange(lonelyButton, Color.GRAY);
-                colorChange(anxiousButton, Color.GRAY);
-                colorChange(relaxedButton, Color.GRAY);
-                colorChange(excitedButton, Color.LTGRAY);
+             moodClicked(excitedButton);
             }
         });
         binding.frustratedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                colorChange(sadButton, Color.GRAY);
-                colorChange(happyButton, Color.GRAY);
-                colorChange(boredButton, Color.GRAY);
-                colorChange(excitedButton, Color.GRAY);
-                colorChange(lovedButton, Color.GRAY);
-                colorChange(lonelyButton, Color.GRAY);
-                colorChange(anxiousButton, Color.GRAY);
-                colorChange(relaxedButton, Color.GRAY);
-                colorChange(frustratedButton, Color.LTGRAY);
+                moodClicked(frustratedButton);
             }
         });
         binding.lovedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                colorChange(sadButton, Color.GRAY);
-                colorChange(happyButton, Color.GRAY);
-                colorChange(boredButton, Color.GRAY);
-                colorChange(excitedButton, Color.GRAY);
-                colorChange(frustratedButton, Color.GRAY);
-                colorChange(lonelyButton, Color.GRAY);
-                colorChange(anxiousButton, Color.GRAY);
-                colorChange(relaxedButton, Color.GRAY);
-                colorChange(lovedButton, Color.LTGRAY);
+                moodClicked(lovedButton);
             }
         });
         binding.lonelyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                colorChange(sadButton, Color.GRAY);
-                colorChange(happyButton, Color.GRAY);
-                colorChange(boredButton, Color.GRAY);
-                colorChange(excitedButton, Color.GRAY);
-                colorChange(frustratedButton, Color.GRAY);
-                colorChange(lovedButton, Color.GRAY);
-                colorChange(anxiousButton, Color.GRAY);
-                colorChange(relaxedButton, Color.GRAY);
-                colorChange(lonelyButton, Color.LTGRAY);
+                moodClicked(lonelyButton);
             }
         });
         binding.relaxedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                colorChange(sadButton, Color.GRAY);
-                colorChange(happyButton, Color.GRAY);
-                colorChange(boredButton, Color.GRAY);
-                colorChange(excitedButton, Color.GRAY);
-                colorChange(frustratedButton, Color.GRAY);
-                colorChange(lovedButton, Color.GRAY);
-                colorChange(anxiousButton, Color.GRAY);
-                colorChange(lonelyButton, Color.GRAY);
-                colorChange(relaxedButton, Color.LTGRAY);
+                moodClicked(relaxedButton);
             }
         });
         binding.anxiousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                colorChange(sadButton, Color.GRAY);
-                colorChange(happyButton, Color.GRAY);
-                colorChange(boredButton, Color.GRAY);
-                colorChange(excitedButton, Color.GRAY);
-                colorChange(frustratedButton, Color.GRAY);
-                colorChange(lovedButton, Color.GRAY);
-                colorChange(lonelyButton, Color.GRAY);
-                colorChange(relaxedButton, Color.GRAY);
-                colorChange(anxiousButton, Color.LTGRAY);
+                moodClicked(anxiousButton);
             }
         });
 
@@ -208,14 +139,25 @@ public class moodAndJournal extends Fragment {
         button.setBackgroundColor(color);
     }
 
+    private void moodClicked(Button clickedButton) {
+        for (Button button : buttonMoods){
+            colorChange(button, button == clickedButton ? Color.LTGRAY : Color.DKGRAY);
+        }
+    }
+
     private void setDiaryEntryValues(DiaryEntry entry) {
-         binding.entryTextView.setText(entry.getContent());
-         binding.entryNameView.setText(entry.getTitle());
-         binding.entryDateView.setText(entry.getDate().toString());
-         int moodId = Integer.parseInt(entry.getMood());
+
+        binding.entryTextView.setText(entry.getTitle()); //Entry title
+        binding.editTextDiaryContent.setText(entry.getContent()); //Entry text
+
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMMM d, yyyy");
+        String formattedDate = sdf.format(entry.getDate());
+         binding.entryDateView.setText(formattedDate); //Entry Date
+
+         String moodId = entry.getMood();
          for (Button button : buttonMoods) {
-             if (button.getId() == moodId) { colorChange(button, Color.DKGRAY); }
-             else { colorChange(button, Color.GRAY); }
+             if (getResources().getResourceEntryName(button.getId()).equals(moodId)) { colorChange(button, Color.LTGRAY); }
+             else { colorChange(button, Color.DKGRAY); }
          }
     }
 
