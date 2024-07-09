@@ -7,13 +7,15 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.VitalTime.Dark" parent="Theme.Material3.Dark">
+    <style name="Theme.VitalTime.Dark" parent="Theme.Material3.Dark.NoActionBar">
         <item name="itemIconTint">
             @color/lightCyan
         </item>
         <item name="itemTextColor">
             @color/lightCyan
         </item>
+        <item name="android:forceDarkAllowed">
+            false</item>
     </style>
 
 

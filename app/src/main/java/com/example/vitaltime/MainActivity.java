@@ -3,6 +3,7 @@ package com.example.vitaltime;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity
      {
-
+    private ThemeViewModel themeViewModel;
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
     BottomNavigationView bottomNavigationView;
@@ -29,6 +30,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        themeViewModel = new ViewModelProvider(this).get(ThemeViewModel.class);
+//        themeViewModel.getCurrentTheme().observe(this, theme -> {
+//            setTheme(theme);
+//            if (savedInstanceState == null) {
+//                // Only recreate if it's not a configuration change
+//                recreate();
+//            }
+//        });
+        setTheme(R.style.Theme_VitalTime_Dark);
+
         super.onCreate(savedInstanceState);
         FirebaseApp.initializeApp(this);
 
