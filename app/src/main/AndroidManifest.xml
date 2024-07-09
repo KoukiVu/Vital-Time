@@ -12,12 +12,12 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/vitaltime_logo_round"
             android:supportsRtl="true"
-            android:theme="@style/Theme.VitalTime.Dark"
+            android:theme="@style/Theme.VitalTime"
             >
         <activity
                 android:name=".MainActivity"
                 android:exported="true"
-                android:theme="@style/Theme.VitalTime.Dark">
+                android:theme="@style/Theme.VitalTime">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
