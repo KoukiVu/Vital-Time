@@ -12,12 +12,23 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import com.example.vitaltime.databinding.MoodJournalBinding;
 
+import java.util.Vector;
+
 
 public class moodAndJournal extends Fragment {
 
     private MoodJournalBinding binding;
     private Button happyButton, sadButton, excitedButton, boredButton, frustratedButton, lovedButton,
             relaxedButton, lonelyButton, anxiousButton;
+    private final Vector<Button> buttonMoods = new Vector<>();
+    private DiaryEntry receivedEntry = null;
+
+    public static moodAndJournal newInstance(DiaryEntry entry) {
+        moodAndJournal fragment = new moodAndJournal();
+        fragment.receivedEntry = entry;
+        return fragment;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -26,18 +37,33 @@ public class moodAndJournal extends Fragment {
         return binding.getRoot();
     }
 
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sadButton = view.findViewById(R.id.sadButton);
-        happyButton = view.findViewById(R.id.happyButton);
-        excitedButton = view.findViewById(R.id.excitedButton);
-        boredButton = view.findViewById(R.id.boredButton);
-        frustratedButton = view.findViewById(R.id.frustratedButton);
-        lovedButton = view.findViewById(R.id.lovedButton);
-        relaxedButton = view.findViewById(R.id.relaxedButton);
-        lonelyButton = view.findViewById(R.id.lonelyButton);
-        anxiousButton = view.findViewById(R.id.anxiousButton);
+        {
+            sadButton = view.findViewById(R.id.sadButton);
+            happyButton = view.findViewById(R.id.happyButton);
+            excitedButton = view.findViewById(R.id.excitedButton);
+            boredButton = view.findViewById(R.id.boredButton);
+            frustratedButton = view.findViewById(R.id.frustratedButton);
+            lovedButton = view.findViewById(R.id.lovedButton);
+            relaxedButton = view.findViewById(R.id.relaxedButton);
+            lonelyButton = view.findViewById(R.id.lonelyButton);
+            anxiousButton = view.findViewById(R.id.anxiousButton);
+
+            //Adding buttons to a vector for the method setDiaryEntryValues()
+            buttonMoods.add(happyButton);
+            buttonMoods.add(sadButton);
+            buttonMoods.add(excitedButton);
+            buttonMoods.add(boredButton);
+            buttonMoods.add(frustratedButton);
+            buttonMoods.add(lovedButton);
+            buttonMoods.add(relaxedButton);
+            buttonMoods.add(lonelyButton);
+            buttonMoods.add(anxiousButton);
+        }
+        if (receivedEntry != null) { setDiaryEntryValues(receivedEntry); } //Sets the values if an entry was passed in
 
         binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,10 +202,23 @@ public class moodAndJournal extends Fragment {
 
 
     }
+
     private void colorChange(Button button, int color) {
 
         button.setBackgroundColor(color);
     }
+
+    private void setDiaryEntryValues(DiaryEntry entry) {
+         binding.entryTextView.setText(entry.getContent());
+         binding.entryNameView.setText(entry.getTitle());
+         binding.entryDateView.setText(entry.getDate().toString());
+         int moodId = Integer.parseInt(entry.getMood());
+         for (Button button : buttonMoods) {
+             if (button.getId() == moodId) { colorChange(button, Color.DKGRAY); }
+             else { colorChange(button, Color.GRAY); }
+         }
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
