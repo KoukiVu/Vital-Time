@@ -24,6 +24,7 @@ public class moodAndJournal extends Fragment {
             relaxedButton, lonelyButton, anxiousButton;
     private final Vector<Button> buttonMoods = new Vector<>();
     private Button selectedButton = null;
+    private Date entryDate = new Date();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,10 +58,13 @@ public class moodAndJournal extends Fragment {
             buttonMoods.add(lonelyButton);
             buttonMoods.add(anxiousButton);
         }
+        //Checks to see if there was a diary entry passed into the fragment
         if (getArguments() != null) {
             DiaryEntry receivedEntry = getArguments().getParcelable("selectedEntry");
             setDiaryEntryValues(receivedEntry);
         }
+
+        //Passes the data to the home fragment to save
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +75,11 @@ public class moodAndJournal extends Fragment {
                         .navigate(R.id.action_moodAndJournal_to_journalHome, bundle);
             }
         });
+
+        //Shows the date of the entry
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMMM d, yyyy");
+        String formattedDate = sdf.format(entryDate);
+        binding.entryDateView.setText(formattedDate);
 
         //Mood button methods
         {
@@ -129,7 +138,6 @@ public class moodAndJournal extends Fragment {
                 }
             });
         }
-
     }
 
     //Changes the color of a button
@@ -156,7 +164,8 @@ public class moodAndJournal extends Fragment {
 
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMMM d, yyyy");
         String formattedDate = sdf.format(entry.getDate());
-         binding.entryDateView.setText(formattedDate); //Entry Date
+        binding.entryDateView.setText(formattedDate); //Entry Date
+        entryDate = entry.getDate();
 
          String moodId = entry.getMood();
          for (Button button : buttonMoods) {
@@ -167,10 +176,9 @@ public class moodAndJournal extends Fragment {
     //Saves the current data
     private DiaryEntry SaveDiaryEntry() {
         String title = String.valueOf(binding.entryTextView.getText());
-        Date date = new Date();
         String content = String.valueOf(binding.editTextDiaryContent.getText());
         String mood = getResources().getResourceEntryName(selectedButton.getId());
-        DiaryEntry newEntry = new DiaryEntry(date, title, mood, content);
+        DiaryEntry newEntry = new DiaryEntry(entryDate, title, mood, content);
         return newEntry;
     }
 

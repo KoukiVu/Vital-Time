@@ -22,12 +22,13 @@ public class JournalHome extends Fragment
     BottomNavigationView bottomNavigationView;
 
     private FragmentJournalHomeBinding binding;
-    DiaryBook diaryBook = new DiaryBook();
+    DiaryBook diaryBook;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        diaryBook = new DiaryBook();
     }
 
     @Override
