@@ -72,8 +72,6 @@ public class MainActivity extends AppCompatActivity
         boolean isDarkTheme = prefs.getBoolean("is_dark_theme", false);
         int themeId = isDarkTheme ? R.style.Theme_VitalTime_Dark : R.style.Theme_VitalTime;
         setTheme(themeId);
-        AppCompatDelegate.setDefaultNightMode(isDarkTheme ?
-                AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
         themeViewModel.setTheme(themeId);
     }
 
