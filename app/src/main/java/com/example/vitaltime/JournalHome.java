@@ -2,6 +2,7 @@ package com.example.vitaltime;
 
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import android.widget.CalendarView;
 import android.widget.TextView;
@@ -49,7 +50,7 @@ public class JournalHome extends Fragment
         DiaryBook diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
 
         CalendarView calView = binding.calendarView;
-        final Date[] dateDate = {new Date(calView.getDate())};
+        final Date[] dateDate = {new Date()};
         final DiaryEntry[] selectedEntry = {null};
         CardView entryCard = binding.CardView;
 
@@ -61,6 +62,9 @@ public class JournalHome extends Fragment
             DiaryEntry receivedEntry = getArguments().getParcelable("newEntry");
             ((ApplicationData) requireActivity().getApplication()).addDiaryEntry(receivedEntry);
         }
+
+        selectedEntry[0] = diaryBook.getEntryKey(dateDate[0]);
+        setEntryCard(entryCard, selectedEntry[0], dateDate[0]);
 
         //Creates a new DiaryEntry or opens an already existing Entry
         binding.buttonNewEntry.setOnClickListener(new View.OnClickListener() {
@@ -91,26 +95,10 @@ public class JournalHome extends Fragment
                 Calendar selectedDate = Calendar.getInstance();
                 selectedDate.set(year, month, dayOfMonth);
 
-                TextView titleText = binding.titleView;
-                TextView dateText = binding.dateView;
-
                 dateDate[0] = new Date(selectedDate.getTimeInMillis());
                 selectedEntry[0] = diaryBook.getEntryKey(dateDate[0]);
 
-                if (selectedEntry[0] != null){
-                    titleText.setText(selectedEntry[0].getTitle());
-                    SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy");
-                    String formattedDate = sdf.format(selectedEntry[0].getDate());
-                    dateText.setText(formattedDate);
-                    entryCard.setClickable(true);
-                }
-                else {
-                    titleText.setText("No entry found");
-                    SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy");
-                    String formattedDate = sdf.format(dateDate[0]);
-                    dateText.setText(formattedDate);
-                    entryCard.setClickable(false);
-                }
+                setEntryCard(entryCard, selectedEntry[0], dateDate[0]);
 
             }
         });
@@ -119,11 +107,12 @@ public class JournalHome extends Fragment
         entryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("selectedEntry", selectedEntry[0]);
-                NavHostFragment.findNavController(JournalHome.this)
-                        .navigate(R.id.action_journalHome_to_moodAndJournal, bundle);
-
+                if (selectedEntry[0] != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("selectedEntry", selectedEntry[0]);
+                    NavHostFragment.findNavController(JournalHome.this)
+                            .navigate(R.id.action_journalHome_to_moodAndJournal, bundle);
+                }
             }
         });
 
@@ -133,6 +122,27 @@ public class JournalHome extends Fragment
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void setEntryCard(CardView entryCard, DiaryEntry selectedEntry, Date dateDate) {
+
+        TextView titleText = binding.titleView;
+        TextView dateText = binding.dateView;
+
+        if (selectedEntry != null){
+            titleText.setText(selectedEntry.getTitle());
+            SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy");
+            String formattedDate = sdf.format(selectedEntry.getDate());
+            dateText.setText(formattedDate);
+            entryCard.setClickable(true);
+        }
+        else {
+            titleText.setText("No entry found");
+            SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy");
+            String formattedDate = sdf.format(dateDate);
+            dateText.setText(formattedDate);
+            entryCard.setClickable(false);
+        }
     }
 
     @Override

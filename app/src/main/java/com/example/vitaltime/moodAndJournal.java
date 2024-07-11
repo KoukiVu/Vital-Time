@@ -189,6 +189,11 @@ public class moodAndJournal extends Fragment {
     //Saves the current data
     private DiaryEntry SaveDiaryEntry() {
         String title = String.valueOf(binding.entryTextView.getText());
+        if (title.isEmpty()) {
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE MMMM d, yyyy");
+            String formattedDate = sdf.format(entryDate);
+            title = formattedDate;
+        }
         String content = String.valueOf(binding.editTextDiaryContent.getText());
         String mood = getResources().getResourceEntryName(selectedButton.getId());
         DiaryEntry newEntry = new DiaryEntry(entryDate, title, mood, content);

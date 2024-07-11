@@ -54,6 +54,7 @@
                 app:cardBackgroundColor="#00FFFFFF"
                 app:cardElevation="1dp"
                 android:id="@+id/CardView"
+                android:clickable="false"
         >
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
