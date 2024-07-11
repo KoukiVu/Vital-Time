@@ -17,10 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class JournalHome extends Fragment
-        implements BottomNavigationView.OnNavigationItemSelectedListener{
-
-    BottomNavigationView bottomNavigationView;
+public class JournalHome extends BaseFragment {
 
     private FragmentJournalHomeBinding binding;
 
@@ -133,35 +130,5 @@ public class JournalHome extends Fragment
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
-        if (menuItem.getItemId() == R.id.tasks) {
-            NavHostFragment.findNavController(JournalHome.this).navigate(R.id.toDoFragment);
-            return true;
-        } else if (menuItem.getItemId() == R.id.home) {
-            NavHostFragment.findNavController(JournalHome.this).navigate(R.id.homeFragment);
-            return true;
-        } else
-            return false;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_main, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.logout) {
-            FirebaseAuth.getInstance().signOut();
-            NavHostFragment.findNavController(JournalHome.this).navigate(R.id.loginFragment);
-            return true;
-        } else if (item.getItemId() == R.id.action_settings){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
