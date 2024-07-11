@@ -181,7 +181,7 @@ public class moodAndJournal extends Fragment {
     private void moodClicked(Button clickedButton) {
         for (Button button : buttonMoods){
             if (button == clickedButton) {
-                colorChange(button, Color.LTGRAY);
+                colorChange(button, Color.GRAY);
                 selectedButton = button;
             } else {  colorChange(button, Color.DKGRAY); }
         }
