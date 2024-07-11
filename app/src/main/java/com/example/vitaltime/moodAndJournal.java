@@ -166,11 +166,14 @@ public class moodAndJournal extends Fragment {
         String formattedDate = sdf.format(entry.getDate());
         binding.entryDateView.setText(formattedDate); //Entry Date
         entryDate = entry.getDate();
-
-         String moodId = entry.getMood();
-         for (Button button : buttonMoods) {
-             if (getResources().getResourceEntryName(button.getId()).equals(moodId)) { moodClicked(button); }
-         }
+        if (entry.getMood() != null) {
+            String moodId = entry.getMood();
+            for (Button button : buttonMoods) {
+                if (getResources().getResourceEntryName(button.getId()).equals(moodId)) {
+                    moodClicked(button);
+                }
+            }
+        }
     }
 
     //Saves the current data
