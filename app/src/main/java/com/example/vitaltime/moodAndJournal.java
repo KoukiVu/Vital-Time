@@ -37,7 +37,7 @@ public class moodAndJournal extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+// commit
         {
             sadButton = view.findViewById(R.id.sadButton);
             happyButton = view.findViewById(R.id.happyButton);
