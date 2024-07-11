@@ -14,7 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import org.jetbrains.annotations.NotNull;
 
-
+ // commit
 public class BaseFragment extends Fragment
 implements  BottomNavigationView.OnNavigationItemSelectedListener {
     private ThemeViewModel themeViewModel;
