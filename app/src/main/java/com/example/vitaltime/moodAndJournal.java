@@ -40,6 +40,7 @@ public class moodAndJournal extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //The buttons
         {
             sadButton = view.findViewById(R.id.sadButton);
             happyButton = view.findViewById(R.id.happyButton);
@@ -62,6 +63,7 @@ public class moodAndJournal extends Fragment {
             buttonMoods.add(lonelyButton);
             buttonMoods.add(anxiousButton);
         }
+
         //Checks to see if there was a diary entry passed into the fragment
         if (getArguments() != null) {
             DiaryEntry receivedEntry = getArguments().getParcelable("selectedEntry");
