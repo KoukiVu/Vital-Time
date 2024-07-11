@@ -82,7 +82,7 @@ public class moodAndJournal extends Fragment {
             public void onClick(View view) {
                 moodClicked(sadButton);
                 TextView textView = binding.editTextDiaryContent;
-                Typeface customFont = getResources().getFont(R.font.lightning);
+                Typeface customFont = getResources().getFont(R.font.cinema);
                 textView.setTypeface(customFont);
 
             }
@@ -110,7 +110,7 @@ public class moodAndJournal extends Fragment {
             public void onClick(View view) {
              moodClicked(excitedButton);
                 TextView textView = binding.editTextDiaryContent;
-                Typeface customFont = getResources().getFont(R.font.koass);
+                Typeface customFont = getResources().getFont(R.font.donperry);
                 textView.setTypeface(customFont);
             }
         });
@@ -146,7 +146,7 @@ public class moodAndJournal extends Fragment {
             public void onClick(View view) {
                 moodClicked(relaxedButton);
                 TextView textView = binding.editTextDiaryContent;
-                Typeface customFont = getResources().getFont(R.font.benjiro);
+                Typeface customFont = getResources().getFont(R.font.february);
                 textView.setTypeface(customFont);
             }
         });
