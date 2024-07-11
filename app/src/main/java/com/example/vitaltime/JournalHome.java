@@ -19,13 +19,11 @@ import java.util.Date;
 public class JournalHome extends BaseFragment {
 
     private FragmentJournalHomeBinding binding;
-    DiaryBook diaryBook;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        diaryBook = new DiaryBook();
     }
 
     @Override
@@ -43,6 +41,9 @@ public class JournalHome extends BaseFragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        DiaryBook diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
+
         CalendarView calView = binding.calendarView;
         final Date[] dateDate = {new Date(calView.getDate())};
         final DiaryEntry[] selectedEntry = {null};
@@ -51,24 +52,28 @@ public class JournalHome extends BaseFragment {
         bottomNavigationView.setSelectedItemId(R.id.diary);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
-
-        ///Adding to the Diary
-        DiaryEntry dayOne = new DiaryEntry(new Date(1719638573715L), "Day One Testing", "happyButton", "This is a test");
-        DiaryEntry dayTwo = new DiaryEntry(new Date(1719033962142L), "Day Two Testing", "sadButton", "This is a test");
-        diaryBook.addDiaryEntry(dayOne);
-        diaryBook.addDiaryEntry(dayTwo);
-
         //Adding a new saved DiaryEntry
         if (getArguments() != null) {
             DiaryEntry receivedEntry = getArguments().getParcelable("newEntry");
-            diaryBook.addDiaryEntry(receivedEntry);
+            ((ApplicationData) requireActivity().getApplication()).addDiaryEntry(receivedEntry);
         }
 
         binding.buttonNewEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(JournalHome.this)
-                        .navigate(R.id.action_journalHome_to_moodAndJournal);
+                if (diaryBook.getEntryKey(dateDate[0]) == null) {
+                    DiaryEntry newEntry = new DiaryEntry(dateDate[0], "", null, "");
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("selectedEntry", newEntry);
+                    NavHostFragment.findNavController(JournalHome.this)
+                            .navigate(R.id.action_journalHome_to_moodAndJournal, bundle);
+                }
+                else {
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("selectedEntry", selectedEntry[0]);
+                    NavHostFragment.findNavController(JournalHome.this)
+                            .navigate(R.id.action_journalHome_to_moodAndJournal, bundle);
+                }
             }
         });
 
