@@ -14,6 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class JournalHome extends BaseFragment {
@@ -58,6 +59,7 @@ public class JournalHome extends BaseFragment {
             ((ApplicationData) requireActivity().getApplication()).addDiaryEntry(receivedEntry);
         }
 
+        //Creates a new DiaryEntry or opens an already existing Entry
         binding.buttonNewEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,6 +79,7 @@ public class JournalHome extends BaseFragment {
             }
         });
 
+        //Selects the date on the calendar
         calView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
@@ -91,18 +94,23 @@ public class JournalHome extends BaseFragment {
 
                 if (selectedEntry[0] != null){
                     titleText.setText(selectedEntry[0].getTitle());
-                    dateText.setText(selectedEntry[0].getDate().toString());
+                    SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy");
+                    String formattedDate = sdf.format(selectedEntry[0].getDate());
+                    dateText.setText(formattedDate);
                     entryCard.setClickable(true);
                 }
                 else {
                     titleText.setText("No entry found");
-                    dateText.setText(dateDate[0].toString());
+                    SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy");
+                    String formattedDate = sdf.format(dateDate[0]);
+                    dateText.setText(formattedDate);
                     entryCard.setClickable(false);
                 }
 
             }
         });
 
+        //Opens the DiaryEntry for that date
         entryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
