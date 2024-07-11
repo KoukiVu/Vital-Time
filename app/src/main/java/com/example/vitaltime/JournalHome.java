@@ -63,18 +63,20 @@ public class JournalHome extends BaseFragment {
         binding.buttonNewEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (diaryBook.getEntryKey(dateDate[0]) == null) {
-                    DiaryEntry newEntry = new DiaryEntry(dateDate[0], "", null, "");
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("selectedEntry", newEntry);
-                    NavHostFragment.findNavController(JournalHome.this)
-                            .navigate(R.id.action_journalHome_to_moodAndJournal, bundle);
-                }
-                else {
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("selectedEntry", selectedEntry[0]);
-                    NavHostFragment.findNavController(JournalHome.this)
-                            .navigate(R.id.action_journalHome_to_moodAndJournal, bundle);
+                Date todayDate = new Date();
+                if (dateDate[0].before(todayDate)) { //if the date is before the current date
+                    if (diaryBook.getEntryKey(dateDate[0]) == null) {
+                        DiaryEntry newEntry = new DiaryEntry(dateDate[0], "", null, "");
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("selectedEntry", newEntry);
+                        NavHostFragment.findNavController(JournalHome.this)
+                                .navigate(R.id.action_journalHome_to_moodAndJournal, bundle);
+                    } else {
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("selectedEntry", selectedEntry[0]);
+                        NavHostFragment.findNavController(JournalHome.this)
+                                .navigate(R.id.action_journalHome_to_moodAndJournal, bundle);
+                    }
                 }
             }
         });
