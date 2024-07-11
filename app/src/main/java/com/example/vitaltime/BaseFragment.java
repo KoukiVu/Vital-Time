@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.*;
+import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -92,5 +93,9 @@ implements  BottomNavigationView.OnNavigationItemSelectedListener {
             return true;
         } else
             return super.onOptionsItemSelected(item);
+    }
+
+    private void showLogoutDialog() {
+        View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_logout, null);
     }
 }
