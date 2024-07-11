@@ -195,7 +195,9 @@ public class moodAndJournal extends Fragment {
             title = formattedDate;
         }
         String content = String.valueOf(binding.editTextDiaryContent.getText());
-        String mood = getResources().getResourceEntryName(selectedButton.getId());
+        String mood;
+        if (selectedButton != null) { mood = getResources().getResourceEntryName(selectedButton.getId()); }
+        else { mood = null; }
         DiaryEntry newEntry = new DiaryEntry(entryDate, title, mood, content);
         return newEntry;
     }

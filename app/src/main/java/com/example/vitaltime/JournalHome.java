@@ -47,6 +47,12 @@ public class JournalHome extends Fragment
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //Adding a new saved DiaryEntry
+        if (getArguments() != null) {
+            DiaryEntry receivedEntry = getArguments().getParcelable("newEntry");
+            ((ApplicationData) requireActivity().getApplication()).addDiaryEntry(receivedEntry);
+        }
+
         DiaryBook diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
 
         CalendarView calView = binding.calendarView;
@@ -56,12 +62,6 @@ public class JournalHome extends Fragment
 
         bottomNavigationView.setSelectedItemId(R.id.diary);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-
-        //Adding a new saved DiaryEntry
-        if (getArguments() != null) {
-            DiaryEntry receivedEntry = getArguments().getParcelable("newEntry");
-            ((ApplicationData) requireActivity().getApplication()).addDiaryEntry(receivedEntry);
-        }
 
         selectedEntry[0] = diaryBook.getEntryKey(dateDate[0]);
         setEntryCard(entryCard, selectedEntry[0], dateDate[0]);
