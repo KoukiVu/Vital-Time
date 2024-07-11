@@ -15,6 +15,8 @@ import com.example.vitaltime.databinding.MoodJournalBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 
@@ -37,7 +39,7 @@ public class moodAndJournal extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-// commit
+
         {
             sadButton = view.findViewById(R.id.sadButton);
             happyButton = view.findViewById(R.id.happyButton);
@@ -181,7 +183,10 @@ public class moodAndJournal extends Fragment {
     private void moodClicked(Button clickedButton) {
         for (Button button : buttonMoods){
             if (button == clickedButton) {
-                colorChange(button, Color.GRAY);
+                TextView textView = binding.editTextDiaryContent;
+                Map<Button,Typeface> fonts = Fonts();
+                textView.setTypeface(fonts.get(button));
+                colorChange(button, Color.LTGRAY);
                 selectedButton = button;
             } else {  colorChange(button, Color.DKGRAY); }
         }
@@ -214,6 +219,21 @@ public class moodAndJournal extends Fragment {
         String mood = getResources().getResourceEntryName(selectedButton.getId());
         DiaryEntry newEntry = new DiaryEntry(entryDate, title, mood, content);
         return newEntry;
+    }
+
+    //Makes a map of the fonts
+    private Map<Button,Typeface> Fonts (){
+        Map<Button,Typeface> fonts = new HashMap<Button,Typeface>();
+        fonts.put(sadButton, getResources().getFont(R.font.cinema));
+        fonts.put(happyButton, getResources().getFont(R.font.comicpillow));
+        fonts.put(boredButton, getResources().getFont(R.font.lemonshake));
+        fonts.put(excitedButton, getResources().getFont(R.font.donperry));
+        fonts.put(frustratedButton, getResources().getFont(R.font.safetyswitch));
+        fonts.put(lovedButton, getResources().getFont(R.font.elatox));
+        fonts.put(lonelyButton, getResources().getFont(R.font.grunge));
+        fonts.put(relaxedButton, getResources().getFont(R.font.february));
+        fonts.put(anxiousButton, getResources().getFont(R.font.pakuintho));
+        return fonts;
     }
 
     @Override
