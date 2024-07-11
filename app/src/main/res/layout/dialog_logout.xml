@@ -22,7 +22,8 @@
             android:text="@string/logout"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/logout_text"
-            app:layout_constraintLeft_toRightOf="@id/cancel_button" android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toRightOf="@id/cancel_button"
+            app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="36dp"/>
     <Button
             android:id="@+id/cancel_button"
@@ -31,7 +32,8 @@
             android:text="@string/cancel"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/logout_text"
-            app:layout_constraint_toRightOf="@id/logout_text"
+            app:layout_constraintRight_toLeftOf="@id/confirm_button"
+            app:layout_constraintLeft_toLeftOf="parent"
             tools:layout_editor_absoluteX="16dp" android:layout_marginTop="36dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
