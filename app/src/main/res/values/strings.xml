@@ -58,4 +58,6 @@
     <string name="new_entry">+ New Entry</string>
     <string name="home">Home</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="logout_confirm">Are you sure you want to logout?</string>
+    <string name="cancel">Cancel</string>
 </resources>
