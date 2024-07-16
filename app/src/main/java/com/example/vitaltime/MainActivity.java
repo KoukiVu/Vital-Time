@@ -1,7 +1,12 @@
 package com.example.vitaltime;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,21 +25,25 @@ import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity
      {
-
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
-    BottomNavigationView bottomNavigationView;
+         private boolean isInitialTrigger = true;
+        private ThemeViewModel themeViewModel;
+        private AppBarConfiguration appBarConfiguration;
+        private ActivityMainBinding binding;
+        BottomNavigationView bottomNavigationView;
+        public static SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        themeViewModel = new ViewModelProvider(this).get(ThemeViewModel.class);
+        themeViewModel.getCurrentTheme().observe(this, this::onThemeChanged);
+        applyTheme();
         super.onCreate(savedInstanceState);
         FirebaseApp.initializeApp(this);
 
-
-
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
 
 
         setSupportActionBar(binding.toolbar);
@@ -50,20 +59,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -71,4 +66,23 @@ public class MainActivity extends AppCompatActivity
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    private void applyTheme() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isDarkTheme = prefs.getBoolean("is_dark_theme", false);
+        int themeId = isDarkTheme ? R.style.Theme_VitalTime_Dark : R.style.Theme_VitalTime;
+        setTheme(themeId);
+        themeViewModel.setTheme(themeId);
+    }
+
+         private void onThemeChanged(Integer themeId) {
+             if (isInitialTrigger) {
+                 isInitialTrigger = false;
+                 return;
+             }
+             if (themeId != null) {
+                 recreate();
+             }
+         }
 }
+

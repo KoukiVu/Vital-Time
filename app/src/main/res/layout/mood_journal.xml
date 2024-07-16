@@ -60,8 +60,8 @@
         <EditText
                 android:id="@+id/editTextDiaryContent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="375dp"
+                android:layout_height="290dp"
                 android:inputType="textMultiLine"
                 android:gravity="top|start"
                 android:lines="13"
@@ -69,8 +69,9 @@
                 android:maxLines="13"
                 android:scrollbars="vertical"
                 android:hint="Write about your day..."
-                tools:layout_editor_absoluteX="16dp"
-                android:layout_marginTop="356dp"
+                tools:layout_editor_absoluteX="2dp"
+                android:layout_marginTop="100dp"
+                app:layout_constraintBottom_toTopOf="@+id/saveButton" app:layout_constraintVertical_bias="0.95"
         />
         <TextView
                 android:id="@+id/moodTextView"
