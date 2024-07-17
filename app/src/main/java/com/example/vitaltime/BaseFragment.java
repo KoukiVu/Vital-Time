@@ -70,7 +70,6 @@ implements  BottomNavigationView.OnNavigationItemSelectedListener {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
         boolean isDarkTheme = prefs.getBoolean("is_dark_theme", false);
         super.onCreateOptionsMenu(menu, inflater);
-        menu.findItem(R.id.dark_mode).setChecked(isDarkTheme);
 
     }
 
