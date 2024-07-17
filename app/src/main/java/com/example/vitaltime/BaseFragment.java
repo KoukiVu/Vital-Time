@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.*;
 import android.widget.Button;
+import android.widget.ImageView;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -67,7 +70,6 @@ implements  BottomNavigationView.OnNavigationItemSelectedListener {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
         boolean isDarkTheme = prefs.getBoolean("is_dark_theme", false);
         super.onCreateOptionsMenu(menu, inflater);
-        menu.findItem(R.id.dark_mode).setChecked(isDarkTheme);
 
     }
 
@@ -77,22 +79,78 @@ implements  BottomNavigationView.OnNavigationItemSelectedListener {
         if (item.getItemId() == R.id.logout) {
             showLogoutDialog(this);
             return true;
-
-        // dark mode switch functionality
-        } else if (item.getItemId() == R.id.dark_mode){
-            boolean darkMode = !item.isChecked();
-            item.setChecked(darkMode);
-            //applies the appropriate theme based on checkbox
-            if (darkMode) {
-                themeViewModel.setTheme(R.style.Theme_VitalTime_Dark);
-            } else
-                themeViewModel.setTheme(R.style.Theme_VitalTime);
-
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
-            prefs.edit().putBoolean("is_dark_theme", darkMode).apply();
+        } else if (item.getItemId() == R.id.themes) {
+            showThemesDialog(this);
             return true;
         } else
             return super.onOptionsItemSelected(item);
+    }
+
+
+    // Dialog View Methods
+    private void showThemesDialog(Fragment parent) {
+        View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_themes, null);
+        final int[] selectedTheme = {-1};
+        Button confirmBtn = dialogView.findViewById(R.id.confirm_button);
+        CardView lightTheme = dialogView.findViewById(R.id.lightCard);
+        CardView darkTheme = dialogView.findViewById(R.id.darkCard);
+        CardView pastelTheme = dialogView.findViewById(R.id.pastelCard);
+        CardView coffeeTheme = dialogView.findViewById(R.id.coffeeCard);
+        CardView midnightTheme = dialogView.findViewById(R.id.midnightCard);
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setView(dialogView);
+        builder.setTitle("Themes");
+        android.app.AlertDialog alertDialog = builder.create();
+
+        // Sets theme for each selection
+        lightTheme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedTheme[0] = R.style.Theme_VitalTime;
+            }
+        });
+        darkTheme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedTheme[0] = R.style.Theme_VitalTime_Dark;
+            }
+        });
+        pastelTheme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedTheme[0] = R.style.Theme_VitalTime_Pastel;
+            }
+        });
+        coffeeTheme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedTheme[0] = R.style.Theme_VitalTime_Coffee;
+            }
+        });
+        midnightTheme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedTheme[0] = R.style.Theme_VitalTime_Midnight;
+            }
+        });
+
+        // Confirm button changes the theme according to selection
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectedTheme[0] == -1) {
+                    alertDialog.dismiss();
+                } else
+                {
+                    themeViewModel.setTheme(selectedTheme[0]);
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
+                    prefs.edit().putInt("theme", selectedTheme[0]).apply();
+                    alertDialog.dismiss();
+                }
+            }
+        });
+
+        alertDialog.show();
     }
 
     private void showLogoutDialog(Fragment parent) {
@@ -111,7 +169,7 @@ implements  BottomNavigationView.OnNavigationItemSelectedListener {
                 NavHostFragment.findNavController(parent).navigate(R.id.loginFragment);
                 alertDialog.dismiss();}
         });
-        // cancel closed the dialog
+        // cancel closes the dialog
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

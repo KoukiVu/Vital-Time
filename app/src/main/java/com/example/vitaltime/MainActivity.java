@@ -44,8 +44,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(binding.getRoot());
 
 
-
-
         setSupportActionBar(binding.toolbar);
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -69,11 +67,8 @@ public class MainActivity extends AppCompatActivity
 
     private void applyTheme() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean isDarkTheme = prefs.getBoolean("is_dark_theme", false);
-        int themeId = isDarkTheme ? R.style.Theme_VitalTime_Dark : R.style.Theme_VitalTime;
+        int themeId = prefs.getInt("theme", R.style.Theme_VitalTime);
         setTheme(themeId);
-        AppCompatDelegate.setDefaultNightMode(isDarkTheme ?
-                AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
         themeViewModel.setTheme(themeId);
     }
 
