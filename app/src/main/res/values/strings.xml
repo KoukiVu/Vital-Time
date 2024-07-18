@@ -60,4 +60,15 @@
     <string name="dark_mode">Dark Mode</string>
     <string name="logout_confirm">Are you sure you want to logout?</string>
     <string name="cancel">Cancel</string>
+    <string name="change_theme">Change Theme</string>
+    <string name="light_theme">Light Theme</string>
+    <string name="light">Light</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="dark">Dark</string>
+    <string name="pastel">Pastel</string>
+    <string name="pastel_theme">Pastel Theme</string>
+    <string name="coffee_pallette">Coffee Pallette</string>
+    <string name="coffee">Coffee</string>
+    <string name="midnight_theme">Midnight Theme</string>
+    <string name="midnight">Midnight</string>
 </resources>

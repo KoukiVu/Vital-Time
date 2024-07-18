@@ -1,22 +1,76 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.VitalTime" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="bottomNavigationStyle">
-            @style/Theme.VitalTime.Dark
-        </item>
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.VitalTime" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/lightCyan</item>
+        <item name="colorAccent">@color/darkBase</item>
+        <item name="bottomNavigationStyle">@style/bottomNavLight</item>
+        <item name="android:windowBackground">@color/lightBase</item>
+
     </style>
 
-    <style name="Theme.VitalTime.Dark" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="itemIconTint">
-            @color/lightCyan
-        </item>
-        <item name="itemTextColor">
-            @color/lightCyan
-        </item>
-        <item name="android:forceDarkAllowed">
-            false</item>
+    <style name="Theme.VitalTime.Dark" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="bottomNavigationStyle">@style/bottomNavDark</item>
+        <item name="android:windowBackground">@color/darkBase</item>
     </style>
+
+    <style name="Theme.VitalTime.Pastel" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="bottomNavigationStyle">@style/bottomNavPastel</item>
+        <item name="android:windowBackground">@color/pastelBase</item>
+    </style>
+
+    <style name="Theme.VitalTime.Midnight" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="bottomNavigationStyle">@style/bottomNavMidnight</item>
+        <item name="android:windowBackground">@color/midnightBase</item>
+    </style>
+
+    <style name="Theme.VitalTime.Coffee" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="bottomNavigationStyle">@style/bottomNavCoffee</item>
+        <item name="android:windowBackground">@color/coffeeBase</item>
+    </style>
+
+
+    <style name="bottomNavLight" parent="Base.Theme.VitalTime">
+        <item name="android:background">@color/lightSecondary</item>
+        <item name="itemIconTint">@color/lightBase</item>
+        <item name="itemTextColor">@color/lightText</item>
+        <item name="itemPaddingTop">15dp</item>
+        <item name="itemPaddingBottom">10dp</item>
+    </style>
+
+    <style name="bottomNavDark" parent="Theme.VitalTime.Dark">
+        <item name="android:background">@color/darkSecondary</item>
+        <item name="itemIconTint">@color/darkText</item>
+        <item name="itemTextColor">@color/darkText</item>
+        <item name="itemPaddingTop">15dp</item>
+        <item name="itemPaddingBottom">10dp</item>
+    </style>
+
+    <style name="bottomNavPastel" parent="Theme.VitalTime.Pastel">
+        <item name="android:background">@color/pastelSecondary</item>
+        <item name="itemIconTint">@color/pastelText</item>
+        <item name="itemTextColor">@color/pastelText</item>
+        <item name="itemPaddingTop">15dp</item>
+        <item name="itemPaddingBottom">10dp</item>
+    </style>
+
+    <style name="bottomNavMidnight" parent="Theme.VitalTime.Midnight">
+        <item name="android:background">@color/midnightSecondary</item>
+        <item name="itemIconTint"> @color/midnightText </item>
+        <item name="itemTextColor"> @color/midnightText </item>
+        <item name="itemPaddingTop"> 15dp </item>
+        <item name="itemPaddingBottom"> 10dp </item>
+    </style>
+
+    <style name="bottomNavCoffee" parent="Theme.VitalTime.Coffee">
+        <item name="android:background">@color/coffeeSecondary</item>
+        <item name="itemIconTint"> @color/coffeeText </item>
+        <item name="itemTextColor"> @color/coffeeText </item>
+        <item name="itemPaddingTop"> 15dp </item>
+        <item name="itemPaddingBottom"> 10dp </item>
+    </style>
+
+
 
 
     <style name="Theme.VitalTime" parent="Base.Theme.VitalTime"/>
