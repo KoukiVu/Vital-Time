@@ -79,6 +79,7 @@ implements  BottomNavigationView.OnNavigationItemSelectedListener {
         if (item.getItemId() == R.id.logout) {
             showLogoutDialog(this);
             return true;
+        // theme dialog functionality
         } else if (item.getItemId() == R.id.themes) {
             showThemesDialog(this);
             return true;
@@ -106,7 +107,7 @@ implements  BottomNavigationView.OnNavigationItemSelectedListener {
         lightTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedTheme[0] = R.style.Theme_VitalTime;
+                selectedTheme[0] = R.style.Theme_VitalTime_Light;
             }
         });
         darkTheme.setOnClickListener(new View.OnClickListener() {
