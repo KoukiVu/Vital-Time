@@ -14,9 +14,9 @@ import com.example.vitaltime.databinding.FragmentJournalHomeBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import org.jetbrains.annotations.NotNull;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
+//AI Text Imports
 
 public class JournalHome extends BaseFragment
         implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -25,6 +25,7 @@ public class JournalHome extends BaseFragment
 
     private FragmentJournalHomeBinding binding;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,11 +33,7 @@ public class JournalHome extends BaseFragment
     }
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
-
+    public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
         binding = com.example.vitaltime.databinding.FragmentJournalHomeBinding.inflate(inflater, container, false);
         bottomNavigationView = binding.bottomNavigationView;
         return binding.getRoot();
@@ -144,4 +141,5 @@ public class JournalHome extends BaseFragment
             entryCard.setClickable(false);
         }
     }
+
 }
