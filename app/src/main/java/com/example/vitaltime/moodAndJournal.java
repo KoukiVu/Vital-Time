@@ -1,15 +1,17 @@
 package com.example.vitaltime;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.preference.PreferenceManager;
+import android.view.*;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import com.example.vitaltime.databinding.MoodJournalBinding;
 
@@ -18,9 +20,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 
 public class moodAndJournal extends Fragment {
+
+    private MenuItem item;
+    int defaultColor = Color.BLACK;
 
     private MoodJournalBinding binding;
     private Button happyButton, sadButton, excitedButton, boredButton, frustratedButton, lovedButton,
@@ -34,6 +40,46 @@ public class moodAndJournal extends Fragment {
 
         binding = MoodJournalBinding.inflate(inflater, container, false);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_change_color) {
+            openColorPicker();
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.edit_text_menu, menu);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void openColorPicker() {
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(requireContext(), defaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+                // Do nothing on cancel
+            }
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                defaultColor = color;
+                binding.editTextDiaryContent.setTextColor(defaultColor);
+            }
+        });
+        colorPicker.show();
     }
 
 
