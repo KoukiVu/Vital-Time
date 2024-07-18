@@ -59,7 +59,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
             deleteButton = itemView.findViewById(R.id.todo_delete);
         }
 
-
+//HI
 
     }
     public interface OnTodoItemListener {
