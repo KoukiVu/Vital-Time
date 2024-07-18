@@ -1,36 +1,51 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.VitalTime" parent="Theme.Material3.Light.NoActionBar">
-        <item name="colorPrimary">@color/lightCyan</item>
-        <item name="colorAccent">@color/darkBase</item>
-        <item name="bottomNavigationStyle">@style/bottomNavLight</item>
+    <style name="Base.Theme.VitalTime" parent="Theme.Material3.DayNight.NoActionBar"/>
+
+
+    <style name="Theme.VitalTime.Light" parent="Base.Theme.VitalTime">
         <item name="android:windowBackground">@color/lightBase</item>
+        <item name="android:colorBackground">@color/lightSecondary</item>
+        <!-- Base colors -->
+        <item name="colorPrimary">@color/lightSecondary</item>
+        <item name="colorPrimaryDark">@color/lightMid</item>
+        <item name="colorAccent">@color/lightMid</item>
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">@color/lightText</item>
+        <item name="android:textColorSecondary">@color/lightSecondary</item>
 
+        <!-- Item styles-->
+        <item name="bottomNavigationStyle">@style/Theme.VitalTime.Light.BottomNav</item>
+        <item name="cardViewStyle">@style/Theme.VitalTime.Light.Card</item>
+        <item name="android:calendarViewStyle">@style/Theme.VitalTime.Light.Calendar</item>
     </style>
 
-    <style name="Theme.VitalTime.Dark" parent="Theme.Material3.DayNight.NoActionBar">
-
-        <item name="bottomNavigationStyle">@style/bottomNavDark</item>
+    <style name="Theme.VitalTime.Dark" parent="Base.Theme.VitalTime">
         <item name="android:windowBackground">@color/darkBase</item>
+        <item name="bottomNavigationStyle">@style/Theme.VitalTime.Dark.BottomNav</item>
+
     </style>
 
-    <style name="Theme.VitalTime.Pastel" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="bottomNavigationStyle">@style/bottomNavPastel</item>
+    <style name="Theme.VitalTime.Pastel" parent="Base.Theme.VitalTime">
         <item name="android:windowBackground">@color/pastelBase</item>
+        <item name="bottomNavigationStyle">@style/Theme.VitalTime.Pastel.BottomNav</item>
+
     </style>
 
-    <style name="Theme.VitalTime.Midnight" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="bottomNavigationStyle">@style/bottomNavMidnight</item>
+    <style name="Theme.VitalTime.Midnight" parent="Base.Theme.VitalTime">
         <item name="android:windowBackground">@color/midnightBase</item>
+        <item name="bottomNavigationStyle">@style/Theme.VitalTime.Midnight.BottomNav</item>
+
     </style>
 
-    <style name="Theme.VitalTime.Coffee" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="bottomNavigationStyle">@style/bottomNavCoffee</item>
+    <style name="Theme.VitalTime.Coffee" parent="Base.Theme.VitalTime">
         <item name="android:windowBackground">@color/coffeeBase</item>
+        <item name="bottomNavigationStyle">@style/Theme.VitalTime.Coffee.BottomNav</item>
+
     </style>
 
-
-    <style name="bottomNavLight" parent="Base.Theme.VitalTime">
+    <!-- Bottom Nav Styles-->
+    <style name="Theme.VitalTime.Light.BottomNav" parent="Theme.VitalTime.Light">
         <item name="android:background">@color/lightSecondary</item>
         <item name="itemIconTint">@color/lightBase</item>
         <item name="itemTextColor">@color/lightText</item>
@@ -38,7 +53,7 @@
         <item name="itemPaddingBottom">10dp</item>
     </style>
 
-    <style name="bottomNavDark" parent="Theme.VitalTime.Dark">
+    <style name="Theme.VitalTime.Dark.BottomNav" parent="Theme.VitalTime.Dark">
         <item name="android:background">@color/darkSecondary</item>
         <item name="itemIconTint">@color/darkText</item>
         <item name="itemTextColor">@color/darkText</item>
@@ -46,15 +61,15 @@
         <item name="itemPaddingBottom">10dp</item>
     </style>
 
-    <style name="bottomNavPastel" parent="Theme.VitalTime.Pastel">
+    <style name="Theme.VitalTime.Pastel.BottomNav" parent="Theme.VitalTime.Pastel">
         <item name="android:background">@color/pastelSecondary</item>
-        <item name="itemIconTint">@color/pastelText</item>
+        <item name="itemIconTint">@color/pastelBase</item>
         <item name="itemTextColor">@color/pastelText</item>
         <item name="itemPaddingTop">15dp</item>
         <item name="itemPaddingBottom">10dp</item>
     </style>
 
-    <style name="bottomNavMidnight" parent="Theme.VitalTime.Midnight">
+    <style name="Theme.VitalTime.Midnight.BottomNav" parent="Theme.VitalTime.Midnight">
         <item name="android:background">@color/midnightSecondary</item>
         <item name="itemIconTint"> @color/midnightText </item>
         <item name="itemTextColor"> @color/midnightText </item>
@@ -62,16 +77,81 @@
         <item name="itemPaddingBottom"> 10dp </item>
     </style>
 
-    <style name="bottomNavCoffee" parent="Theme.VitalTime.Coffee">
+    <style name="Theme.VitalTime.Coffee.BottomNav" parent="Theme.VitalTime.Coffee">
         <item name="android:background">@color/coffeeSecondary</item>
-        <item name="itemIconTint"> @color/coffeeText </item>
+        <item name="itemIconTint"> @color/coffeeBase </item>
         <item name="itemTextColor"> @color/coffeeText </item>
         <item name="itemPaddingTop"> 15dp </item>
         <item name="itemPaddingBottom"> 10dp </item>
     </style>
 
 
+    <!-- Card view styles -->
+    <style name="Theme.VitalTime.Light.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/lightSecondary</item>
+        <item name="android:textViewStyle">@style/Theme.VitalTime.Light.Text</item>
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">4dp</item>
+    </style>
+    <style name="Theme.VitalTime.Light.Text" parent="Widget.MaterialComponents.TextView">
+        <item name="background">@android:color/transparent</item>
+        <item name="android:textColor">@color/lightText</item>
+    </style>
+
+    <!-- Calendar styles -->
+    <style name="Theme.VitalTime.Light.Calendar" parent="Widget.MaterialComponents.MaterialCalendar">
+        <item name="background">@color/lightBase</item>
+        <item name="android:selectedWeekBackgroundColor">@color/lightMid</item>
+        <item name="android:focusedMonthDateColor">@color/lightSecondary</item>
+        <item name="android:weekDayTextAppearance">@style/CalendarWeekDayTextAppearance.Light</item>
+        <item name="android:dateTextAppearance">@style/CalendarDateTextAppearance.Light</item>
+    </style>
+
+    <style name="CalendarWeekDayTextAppearance.Light" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/lightText</item>
+    </style>
+
+    <style name="CalendarDateTextAppearance.Light" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/lightText</item>
+    </style>
+
+    <!-- Text View Styles -->
 
 
-    <style name="Theme.VitalTime" parent="Base.Theme.VitalTime"/>
+    <style name="Theme.VitalTime.Dark.Text" parent="Widget.MaterialComponents.TextView">
+        <item name="background">@android:color/transparent</item>
+        <item name="android:textColor">@color/darkText</item>
+    </style>
+
+    <style name="Theme.VitalTime.Pastel.Text" parent="Widget.MaterialComponents.TextView">
+        <item name="background">@android:color/transparent</item>
+        <item name="android:textColor">@color/pastelText</item>
+    </style>
+
+    <style name="Theme.VitalTime.Coffee.Text" parent="Widget.MaterialComponents.TextView">
+        <item name="background">@android:color/transparent</item>
+        <item name="android:textColor">@color/coffeeText</item>
+    </style>
+
+    <style name="Theme.VitalTime.Midnight.Text" parent="Widget.MaterialComponents.TextView">
+        <item name="background">@android:color/transparent</item>
+        <item name="android:textColor">@color/midnightText</item>
+    </style>
+
+    <style name="lightScheme" parent="Base.Theme.VitalTime">
+        <item name="colorPrimary">@color/lightSecondary</item>
+        <item name="colorPrimaryDark">@color/lightMid</item>
+        <item name="colorAccent">@color/lightMid</item>
+        <item name="android:textColorPrimary">@color/lightText</item>
+        <item name="android:textColorSecondary">@color/lightSecondary</item>
+        <item name="background">@color/lightBase</item>
+        <item name="android:weekDayTextAppearance">@color/lightSecondary</item>
+        <item name="android:dateTextAppearance">@color/lightText</item>
+        <item name="android:selectedWeekBackgroundColor">@color/lightBase</item>
+        <item name="android:focusedMonthDateColor">@color/lightMid</item>
+        <item name="android:headerMonthTextAppearance">@color/lightSecondary</item>
+        <item name="dayTodayStyle">@color/lightSecondary</item>
+    </style>
+
+
 </resources>
