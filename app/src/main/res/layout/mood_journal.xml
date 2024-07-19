@@ -250,8 +250,8 @@
         <ImageView
                 android:src="@drawable/anxiousface"
                 android:elevation="8dp"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:id="@+id/imageView"
                 app:layout_constraintTop_toTopOf="@id/anxiousButton"
                 app:layout_constraintLeft_toLeftOf="@id/anxiousButton"
