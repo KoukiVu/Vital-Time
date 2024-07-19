@@ -16,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import org.jetbrains.annotations.NotNull;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-//AI Text Imports
 
 public class JournalHome extends BaseFragment
         implements BottomNavigationView.OnNavigationItemSelectedListener{

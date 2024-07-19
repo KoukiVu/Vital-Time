@@ -3,6 +3,8 @@ package com.example.vitaltime;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
-import java.util.concurrent.Executor;
 
 // Imports for AI
 import com.google.ai.client.generativeai.GenerativeModel;
@@ -85,11 +86,7 @@ public class moodAndJournal extends Fragment {
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DiaryEntry saveEntry = SaveDiaryEntry();
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("newEntry", saveEntry);
-                NavHostFragment.findNavController(moodAndJournal.this)
-                        .navigate(R.id.action_moodAndJournal_to_journalHome, bundle);
+                SaveDiaryEntry();
             }
         });
 
@@ -198,35 +195,59 @@ public class moodAndJournal extends Fragment {
     }
 
     //Saves the current data
-    private DiaryEntry SaveDiaryEntry() {
+    private void SaveDiaryEntry() {
+        CreateDiaryEntryTitle(new TitleGenerationCallback() {
+            public void onTitleGenerated(String title) {
+                String content = String.valueOf(binding.editTextDiaryContent.getText());
+                String mood;
+                if (selectedButton != null) { mood = getResources().getResourceEntryName(selectedButton.getId()); }
+                else { mood = null; }
+                DiaryEntry newEntry = new DiaryEntry(entryDate, title, mood, content);
+
+                // Pass the data to the home fragment to save
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("newEntry", newEntry);
+                NavHostFragment.findNavController(moodAndJournal.this)
+                        .navigate(R.id.action_moodAndJournal_to_journalHome, bundle);
+            }
+        });
+    }
+
+    public interface TitleGenerationCallback {
+        void onTitleGenerated(String title);
+    }
+
+    private void CreateDiaryEntryTitle(TitleGenerationCallback callback) {
         String content = String.valueOf(binding.editTextDiaryContent.getText());
-        TextView title = binding.entryTextView;
-        if ((title.getText().toString()).isEmpty()) {
+        TextView titleView = binding.entryTextView;
+        String title = titleView.getText().toString();
+
+        if (title.isEmpty()) {
             // For text-only input, use the gemini-pro model
             GenerativeModel gm = new GenerativeModel(/* modelName */ "gemini-pro", /* apiKey */ "AIzaSyBlslMky_9x02o6qtUxlbD0slpLVOSQX0Q");
             GenerativeModelFutures model = GenerativeModelFutures.from(gm);
-            Content textContent = new Content.Builder().addText("Create a simple title for the text: " + content).build();
+            Content textContent = new Content.Builder().addText("Create a title with 20 characters or less for the text: " + content).build();
 
             ListenableFuture<GenerateContentResponse> response = model.generateContent(textContent);
             Futures.addCallback(response, new FutureCallback<GenerateContentResponse>() {
                 @Override
                 public void onSuccess(GenerateContentResponse result) {
                     String resultText = result.getText();
-                    title.setText(resultText);
+                    titleView.setText(resultText);
+                    callback.onTitleGenerated(resultText);
                 }
+
                 @Override
                 public void onFailure(Throwable t) {
                     SimpleDateFormat sdf = new SimpleDateFormat("EEE MMMM d, yyyy");
                     String formattedDate = sdf.format(entryDate);
-                    title.setText(formattedDate);
+                    titleView.setText(formattedDate);
+                    callback.onTitleGenerated(formattedDate);
                 }
-            }, requireActivity().getMainExecutor());
+            }, new Handler(Looper.getMainLooper())::post);
+        } else {
+            callback.onTitleGenerated(title);
         }
-        String mood;
-        if (selectedButton != null) { mood = getResources().getResourceEntryName(selectedButton.getId()); }
-        else { mood = null; }
-        DiaryEntry newEntry = new DiaryEntry(entryDate, title.getText().toString(), mood, content);
-        return newEntry;
     }
 
 
