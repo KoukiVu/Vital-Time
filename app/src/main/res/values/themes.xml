@@ -1,36 +1,102 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.VitalTime" parent="Theme.Material3.Light.NoActionBar">
-        <item name="colorPrimary">@color/lightCyan</item>
-        <item name="colorAccent">@color/darkBase</item>
-        <item name="bottomNavigationStyle">@style/bottomNavLight</item>
+    <style name="Base.Theme.VitalTime" parent="Theme.Material3.Dark.NoActionBar"/>
+
+
+    <style name="VitalTime.Light" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:windowBackground">@color/lightBase</item>
-
+        <item name="android:colorBackground">@color/lightSecondary</item>
+        <item name="background">@color/lightBase</item>
+        <!-- Base colors -->
+        <item name="colorPrimary">@color/lightMid</item>
+        <item name="colorPrimaryDark">@color/lightMid</item>
+        <item name="colorAccent">@color/lightSecondary</item>
+        <!-- Text colors -->
+        <item name="android:textColor">@color/lightText</item>
+        <item name="android:textColorPrimary">@color/lightText</item>
+        <item name="android:textColorSecondary">@color/black</item>
+        <!-- Item styles-->
+        <item name="bottomNavigationStyle">@style/VitalTime.Light.BottomNav</item>
+        <item name="cardViewStyle">@style/VitalTime.Light.Card</item>
+        <item name="materialButtonStyle">@style/VitalTime.Light.Button</item>
+        <item name="toolbarStyle">@style/VitalTime.Light.Toolbar</item>
     </style>
 
-    <style name="Theme.VitalTime.Dark" parent="Theme.Material3.DayNight.NoActionBar">
-
-        <item name="bottomNavigationStyle">@style/bottomNavDark</item>
+    <style name="VitalTime.Dark" parent="Theme.Material3.Dark.NoActionBar">
         <item name="android:windowBackground">@color/darkBase</item>
+        <item name="android:colorBackground">@color/darkSecondary</item>
+        <!-- Base colors -->
+        <item name="colorPrimary">@color/darkMid</item>
+        <item name="colorPrimaryDark">@color/darkMid</item>
+        <item name="colorAccent">@color/darkSecondary</item>
+        <!-- Text colors -->
+        <item name="android:textColor">@color/darkText</item>
+        <item name="android:weekDayTextAppearance">@style/CalendarWeekDayTextAppearance.Dark</item>
+        <item name="android:textColorPrimary">@color/darkText</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <!-- Item styles-->
+        <item name="bottomNavigationStyle">@style/VitalTime.Dark.BottomNav</item>
+        <item name="cardViewStyle">@style/VitalTime.Dark.Card</item>
+        <item name="materialButtonStyle">@style/VitalTime.Dark.Button</item>
+        <item name="toolbarStyle">@style/VitalTime.Dark.Toolbar</item>
     </style>
 
-    <style name="Theme.VitalTime.Pastel" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="bottomNavigationStyle">@style/bottomNavPastel</item>
+    <style name="VitalTime.Pastel" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:windowBackground">@color/pastelBase</item>
+        <item name="android:colorBackground">@color/pastelPink</item>
+        <!-- Base colors -->
+        <item name="colorPrimary">@color/pastelSecondary</item>
+        <item name="colorPrimaryDark">@color/pastelSecondary</item>
+        <item name="colorAccent">@color/pastelPink</item>
+        <!-- Text colors -->
+        <item name="android:textColor">@color/pastelText</item>
+        <item name="android:textColorPrimary">@color/pastelText</item>
+        <item name="android:textColorSecondary">@color/black</item>
+        <!-- Item styles-->
+        <item name="bottomNavigationStyle">@style/VitalTime.Pastel.BottomNav</item>
+        <item name="cardViewStyle">@style/VitalTime.Pastel.Card</item>
+        <item name="materialButtonStyle">@style/VitalTime.Pastel.Button</item>
+        <item name="toolbarStyle">@style/VitalTime.Pastel.Toolbar</item>
     </style>
 
-    <style name="Theme.VitalTime.Midnight" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="bottomNavigationStyle">@style/bottomNavMidnight</item>
-        <item name="android:windowBackground">@color/midnightBase</item>
-    </style>
-
-    <style name="Theme.VitalTime.Coffee" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="bottomNavigationStyle">@style/bottomNavCoffee</item>
+    <style name="VitalTime.Coffee" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:windowBackground">@color/coffeeBase</item>
+        <item name="android:colorBackground">@color/coffeeSecondary</item>
+        <!-- Base colors -->
+        <item name="colorPrimary">@color/coffeeDark</item>
+        <item name="colorPrimaryDark">@color/coffeeDark</item>
+        <item name="colorAccent">@color/coffeeSecondary</item>
+        <!-- Text colors -->
+        <item name="android:textColor">@color/coffeeText</item>
+        <item name="android:textColorPrimary">@color/coffeeText</item>
+        <item name="android:textColorSecondary">@color/black</item>
+        <!-- Item styles-->
+        <item name="bottomNavigationStyle">@style/VitalTime.Coffee.BottomNav</item>
+        <item name="cardViewStyle">@style/VitalTime.Coffee.Card</item>
+        <item name="materialButtonStyle">@style/VitalTime.Coffee.Button</item>
+        <item name="toolbarStyle">@style/VitalTime.Coffee.Toolbar</item>
     </style>
 
+    <style name="VitalTime.Midnight" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:windowBackground">@color/midnightBase</item>
+        <item name="android:colorBackground">@color/midnightSecondary</item>
+        <!-- Base colors -->
+        <item name="colorPrimary">@color/midnightMid</item>
+        <item name="colorPrimaryDark">@color/midnightMid</item>
+        <item name="colorAccent">@color/midnightSecondary</item>
+        <!-- Text colors -->
+        <item name="android:textColor">@color/midnightText</item>
+        <item name="android:textColorPrimary">@color/midnightText</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <!-- Item styles-->
+        <item name="bottomNavigationStyle">@style/VitalTime.Midnight.BottomNav</item>
+        <item name="cardViewStyle">@style/VitalTime.Midnight.Card</item>
+        <item name="materialButtonStyle">@style/VitalTime.Midnight.Button</item>
+        <item name="toolbarStyle">@style/VitalTime.Midnight.Toolbar</item>
+    </style>
 
-    <style name="bottomNavLight" parent="Base.Theme.VitalTime">
+    <!-- Bottom Nav Styles-->
+    <style name="VitalTime.Light.BottomNav" parent="VitalTime.Light">
         <item name="android:background">@color/lightSecondary</item>
         <item name="itemIconTint">@color/lightBase</item>
         <item name="itemTextColor">@color/lightText</item>
@@ -38,7 +104,7 @@
         <item name="itemPaddingBottom">10dp</item>
     </style>
 
-    <style name="bottomNavDark" parent="Theme.VitalTime.Dark">
+    <style name="VitalTime.Dark.BottomNav" parent="VitalTime.Dark">
         <item name="android:background">@color/darkSecondary</item>
         <item name="itemIconTint">@color/darkText</item>
         <item name="itemTextColor">@color/darkText</item>
@@ -46,15 +112,15 @@
         <item name="itemPaddingBottom">10dp</item>
     </style>
 
-    <style name="bottomNavPastel" parent="Theme.VitalTime.Pastel">
-        <item name="android:background">@color/pastelSecondary</item>
-        <item name="itemIconTint">@color/pastelText</item>
+    <style name="VitalTime.Pastel.BottomNav" parent="VitalTime.Pastel">
+        <item name="android:background">@color/pastelPink</item>
+        <item name="itemIconTint">@color/pastelSecondary</item>
         <item name="itemTextColor">@color/pastelText</item>
         <item name="itemPaddingTop">15dp</item>
         <item name="itemPaddingBottom">10dp</item>
     </style>
 
-    <style name="bottomNavMidnight" parent="Theme.VitalTime.Midnight">
+    <style name="VitalTime.Midnight.BottomNav" parent="VitalTime.Midnight">
         <item name="android:background">@color/midnightSecondary</item>
         <item name="itemIconTint"> @color/midnightText </item>
         <item name="itemTextColor"> @color/midnightText </item>
@@ -62,16 +128,185 @@
         <item name="itemPaddingBottom"> 10dp </item>
     </style>
 
-    <style name="bottomNavCoffee" parent="Theme.VitalTime.Coffee">
+    <style name="VitalTime.Coffee.BottomNav" parent="VitalTime.Coffee">
         <item name="android:background">@color/coffeeSecondary</item>
-        <item name="itemIconTint"> @color/coffeeText </item>
+        <item name="itemIconTint"> @color/coffeeBase </item>
         <item name="itemTextColor"> @color/coffeeText </item>
         <item name="itemPaddingTop"> 15dp </item>
         <item name="itemPaddingBottom"> 10dp </item>
     </style>
 
 
+    <!-- Card view styles -->
+    <style name="VitalTime.Light.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/lightSecondary</item>
+        <item name="android:textViewStyle">@style/VitalTime.Light.Text</item>
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">4dp</item>
+    </style>
+    <style name="VitalTime.Light.Text" parent="Widget.MaterialComponents.TextView">
+        <item name="background">@android:color/transparent</item>
+        <item name="android:textColor">@color/lightText</item>
+    </style>
+
+    <style name="VitalTime.Dark.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/darkSecondary</item>
+        <item name="android:textViewStyle">@style/VitalTime.Dark.Text</item>
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">4dp</item>
+    </style>
+    <style name="VitalTime.Dark.Text" parent="Widget.MaterialComponents.TextView">
+        <item name="background">@android:color/transparent</item>
+        <item name="android:textColor">@color/darkText</item>
+    </style>
+
+    <style name="VitalTime.Pastel.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/pastelPink</item>
+        <item name="android:textViewStyle">@style/VitalTime.Pastel.Text</item>
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">4dp</item>
+    </style>
+    <style name="VitalTime.Pastel.Text" parent="Widget.MaterialComponents.TextView">
+        <item name="background">@android:color/transparent</item>
+        <item name="android:textColor">@color/pastelText</item>
+    </style>
+
+    <style name="VitalTime.Coffee.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/coffeeSecondary</item>
+        <item name="android:textViewStyle">@style/VitalTime.Coffee.Text</item>
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">4dp</item>
+    </style>
+    <style name="VitalTime.Coffee.Text" parent="Widget.MaterialComponents.TextView">
+        <item name="background">@android:color/transparent</item>
+        <item name="android:textColor">@color/coffeeText</item>
+    </style>
+
+    <style name="VitalTime.Midnight.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/midnightSecondary</item>
+        <item name="android:textViewStyle">@style/VitalTime.Midnight.Text</item>
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">4dp</item>
+    </style>
+    <style name="VitalTime.Midnight.Text" parent="Widget.MaterialComponents.TextView">
+        <item name="background">@android:color/transparent</item>
+        <item name="android:textColor">@color/midnightText</item>
+    </style>
 
 
-    <style name="Theme.VitalTime" parent="Base.Theme.VitalTime"/>
+    <!-- Calendar styles -->
+    <style name="CalendarWeekDayTextAppearance.Light" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="CalendarWeekDayTextAppearance.Dark" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/darkText</item>
+    </style>
+    <style name="CalendarWeekDayTextAppearance.Pastel" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/pastelText</item>
+    </style>
+    <style name="CalendarWeekDayTextAppearance.Coffee" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/coffeeText</item>
+    </style>
+    <style name="CalendarWeekDayTextAppearance.Midnight" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/midnightText</item>
+    </style>
+
+
+    <!-- Dialog Themes -->
+    <style name="VitalTime.Light.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="background">@color/lightBase</item>
+        <item name="cardViewStyle">@style/VitalTime.Light.Card</item>
+    </style>
+
+    <style name="VitalTime.Dark.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:background">@color/darkBase</item>
+        <item name="cardViewStyle">@style/VitalTime.Dark.Card</item>
+    </style>
+
+    <style name="VitalTime.Pastel.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:background">@color/pastelBase</item>
+        <item name="cardViewStyle">@style/VitalTime.Pastel.Card</item>
+    </style>
+
+    <style name="VitalTime.Coffee.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:background">@color/coffeeBase</item>
+        <item name="cardViewStyle">@style/VitalTime.Coffee.Card</item>
+    </style>
+
+    <style name="VitalTime.Midnight.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:background">@color/midnightBase</item>
+        <item name="cardViewStyle">@style/VitalTime.Midnight.Card</item>
+    </style>
+
+
+    <!-- Button Styles -->
+    <style name="VitalTime.Light.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/lightSecondary</item>
+        <item name="android:textColor">@color/lightText</item>
+        <item name="android:textSize">11sp</item>
+        <item name="cornerRadius">16dp</item>
+    </style>
+
+    <style name="VitalTime.Dark.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/darkSecondary</item>
+        <item name="android:textColor">@color/darkText</item>
+        <item name="android:textSize">11sp</item>
+        <item name="cornerRadius">16dp</item>
+    </style>
+
+    <style name="VitalTime.Pastel.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/pastelPink</item>
+        <item name="android:textColor">@color/pastelText</item>
+        <item name="android:textSize">11sp</item>
+        <item name="cornerRadius">16dp</item>
+    </style>
+
+    <style name="VitalTime.Coffee.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/coffeeSecondary</item>
+        <item name="android:textColor">@color/coffeeText</item>
+        <item name="android:textSize">11sp</item>
+        <item name="cornerRadius">16dp</item>
+    </style>
+
+    <style name="VitalTime.Midnight.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/midnightSecondary</item>
+        <item name="android:textColor">@color/midnightText</item>
+        <item name="android:textSize">11sp</item>
+        <item name="cornerRadius">16dp</item>
+    </style>
+
+
+    <!-- ToolBar Styles -->
+    <style name="VitalTime.Light.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/lightMid</item>
+        <item name="android:textColor">@color/lightText</item>
+    </style>
+
+    <style name="VitalTime.Dark.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/darkMid</item>
+        <item name="android:textColor">@color/darkText</item>
+    </style>
+
+    <style name="VitalTime.Pastel.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/pastelPink</item>
+        <item name="android:textColor">@color/pastelText</item>
+    </style>
+
+    <style name="VitalTime.Coffee.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/coffeeDark</item>
+        <item name="android:textColor">@color/coffeeText</item>
+    </style>
+
+    <style name="VitalTime.Midnight.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/midnightMid</item>
+        <item name="android:textColor">@color/midnightText</item>
+    </style>
+
+
+    <!-- Menu Styles -->
+    <style name="VitalTime.Light.Menu" parent="">
+        <item name="background">@color/lightSecondary</item>
+    </style>
+
 </resources>
