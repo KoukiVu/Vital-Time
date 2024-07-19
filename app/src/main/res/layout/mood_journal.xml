@@ -4,25 +4,10 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="1000dp"
+        android:padding="16dp"
         tools:context=".moodAndJournal">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="410dp"
-            android:layout_height="1000dp"
-            android:padding="16dp">
-
-        <Button
-                android:id="@+id/saveButton"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:text="SAVE"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="650dp"
-        />
         <TextView
                 android:id="@+id/entryNameView"
                 android:layout_width="189dp"
@@ -57,139 +42,113 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="276dp"
         />
-        <EditText
-                android:id="@+id/editTextDiaryContent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:gravity="top|start"
-                android:lines="13"
-                android:minLines="1"
-                android:maxLines="13"
-                android:scrollbars="vertical"
-                android:hint="Write about your day..."
-                tools:layout_editor_absoluteX="16dp"
-                android:layout_marginTop="356dp"
-        />
+
         <TextView
                 android:id="@+id/moodTextView"
-                android:layout_width="250dp"
+                android:layout_width="189dp"
                 android:layout_height="25dp"
                 android:layout_centerHorizontal="true"
                 android:text="How are you feeling today?"
-                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/boredButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.08"
-                app:layout_constraintHorizontal_bias="0.6"/>
+                app:layout_constraintVertical_bias="0.0"/>
         <Button
                 android:id="@+id/sadButton"
-                android:layout_width="116dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginTop="120dp"
                 android:text="        Sad   "
-                app:layout_constraintTop_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/entryTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+
+        />
+        <Button
+                android:id="@+id/happyButton"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginBottom="15dp"
+                android:textAlignment="center"
+                android:text="       Happy"
+                app:layout_constraintBottom_toTopOf="@id/sadButton"
+                app:layout_constraintStart_toStartOf="parent"
+        />
+        <Button
+                android:id="@+id/excitedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="     Excited"
+                app:layout_constraintBottom_toTopOf="@id/lovedButton"
+                android:layout_marginBottom="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="1.0"/>
+        <Button
+                android:id="@+id/boredButton"
+                android:layout_width="127dp"
+                android:layout_height="50dp"
+                android:text="        Bored "
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/entryTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"/>
+        <Button
+                android:id="@+id/frustratedButton"
+                android:layout_width="137dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="15dp"
+                android:text="      Frustrated"
+                app:layout_constraintBottom_toTopOf="@id/boredButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
         />
         <Button
                 android:id="@+id/lovedButton"
                 android:layout_width="113dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="50dp"
                 android:text="      Loved"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.49"/>
-
-        <Button
-                android:id="@+id/happyButton"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginTop="50dp"
-                android:text="       Happy"
-                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/entryTextView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-        />
-        <Button
-                android:id="@+id/excitedButton"
-                android:layout_width="116dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="50dp"
-                android:text="     Excited"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"/>
         <Button
                 android:id="@+id/lonelyButton"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginTop="190dp"
+                android:layout_marginTop="15dp"
                 android:text="      Lonely"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/sadButton"
+                app:layout_constraintStart_toStartOf="parent"/>
+
         <Button
-                android:id="@+id/boredButton"
-                android:layout_width="114dp"
+                android:id="@+id/anxiousButton"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginTop="120dp"
-                android:text="     Bored"
-                app:layout_constraintTop_toBottomOf="parent"
+                android:layout_marginTop="15dp"
+                android:text="       Anxious"
+                app:layout_constraintTop_toBottomOf="@id/boredButton"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+        />
         <Button
                 android:id="@+id/relaxedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginTop="120dp"
+                android:layout_marginTop="15dp"
                 android:text="     Relaxed"
-                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lovedButton"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.49"
+                app:layout_constraintHorizontal_bias="1.0"
         />
-        <Button
-                android:id="@+id/anxiousButton"
-                android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="190dp"
-                android:text="     Anxious"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1"
-        />
-
-        <Button
-                android:id="@+id/frustratedButton"
-                android:layout_width="136dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="190dp"
-                android:text="      Frustrated"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.48"/>
         <ImageView
                 android:src="@drawable/sadface"
-                android:layout_width="38dp"
-                android:layout_height="41dp"
+                android:elevation="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageView6"
                 app:layout_constraintTop_toTopOf="@id/sadButton"
                 app:layout_constraintLeft_toLeftOf="@id/sadButton"
@@ -199,8 +158,9 @@
         />
         <ImageView
                 android:src="@drawable/happyface"
-                android:layout_width="38dp"
-                android:layout_height="41dp"
+                android:elevation="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageView7"
                 app:layout_constraintTop_toTopOf="@id/happyButton"
                 app:layout_constraintLeft_toLeftOf="@id/happyButton"
@@ -210,8 +170,9 @@
         />
         <ImageView
                 android:src="@drawable/frustratedface"
-                android:layout_width="38dp"
-                android:layout_height="41dp"
+                android:elevation="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageView9"
                 app:layout_constraintTop_toTopOf="@id/frustratedButton"
                 app:layout_constraintLeft_toLeftOf="@id/frustratedButton"
@@ -220,8 +181,9 @@
                 app:layout_constraintVertical_bias="0.5"/>
         <ImageView
                 android:src="@drawable/lonelyface"
-                android:layout_width="38dp"
-                android:layout_height="41dp"
+                android:elevation="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageView10"
                 app:layout_constraintTop_toTopOf="@id/lonelyButton"
                 app:layout_constraintLeft_toLeftOf="@id/lonelyButton"
@@ -231,8 +193,9 @@
         />
         <ImageView
                 android:src="@drawable/boredface"
-                android:layout_width="38dp"
-                android:layout_height="41dp"
+                android:elevation="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageView11"
                 app:layout_constraintTop_toTopOf="@id/boredButton"
                 app:layout_constraintLeft_toLeftOf="@id/boredButton"
@@ -241,8 +204,9 @@
                 app:layout_constraintVertical_bias="0.5 "/>
         <ImageView
                 android:src="@drawable/anxiousface"
-                android:layout_width="38dp"
-                android:layout_height="41dp"
+                android:elevation="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageView"
                 app:layout_constraintTop_toTopOf="@id/anxiousButton"
                 app:layout_constraintLeft_toLeftOf="@id/anxiousButton"
@@ -251,8 +215,9 @@
                 app:layout_constraintVertical_bias="0.5 "/>
         <ImageView
                 android:src="@drawable/lovedface"
-                android:layout_width="38dp"
-                android:layout_height="41dp"
+                android:elevation="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageView2"
                 app:layout_constraintTop_toTopOf="@id/lovedButton"
                 app:layout_constraintLeft_toLeftOf="@id/lovedButton"
@@ -262,8 +227,9 @@
         />
         <ImageView
                 android:src="@drawable/excitedface"
-                android:layout_width="38dp"
-                android:layout_height="41dp"
+                android:elevation="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="@id/excitedButton"
                 app:layout_constraintLeft_toLeftOf="@id/excitedButton"
@@ -273,8 +239,9 @@
         />
         <ImageView
                 android:src="@drawable/relaxedface"
-                android:layout_width="38dp"
-                android:layout_height="41dp"
+                android:elevation="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageView4"
                 app:layout_constraintTop_toTopOf="@id/relaxedButton"
                 app:layout_constraintLeft_toLeftOf="@id/relaxedButton"
@@ -282,6 +249,19 @@
                 android:layout_marginLeft="4dp"
                 app:layout_constraintVertical_bias="0.5"
         />
+        <EditText
+                android:id="@+id/editTextDiaryContent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:gravity="top|start"
+                android:lines="10"
+                android:minLines="1"
+                android:maxLines="10"
+                android:scrollbars="vertical"
+                android:hint="Write about your day..."
+                tools:layout_editor_absoluteX="16dp"
+                android:layout_marginTop="360dp"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
