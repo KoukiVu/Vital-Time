@@ -39,14 +39,6 @@ public class moodAndJournal extends Fragment {
         lonelyButton = view.findViewById(R.id.lonelyButton);
         anxiousButton = view.findViewById(R.id.anxiousButton);
 
-        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(moodAndJournal.this)
-                        .navigate(R.id.action_moodAndJournal_to_journalHome);
-            }
-        });
-
         binding.sadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

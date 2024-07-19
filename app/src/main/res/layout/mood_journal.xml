@@ -12,16 +12,6 @@
             android:layout_height="1000dp"
             android:padding="16dp">
 
-        <Button
-                android:id="@+id/button_first"
-                android:layout_width="75dp"
-                android:layout_height="38dp"
-                android:text="Continue"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintHorizontal_bias="0.954"/>
         <TextView
                 android:id="@+id/entryNameView"
                 android:layout_width="189dp"
@@ -85,6 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
+                android:textAlignment="center"
                 android:text="       Happy"
                 app:layout_constraintTop_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -170,8 +161,9 @@
         />
         <ImageView
                 android:src="@drawable/sadface"
-                android:layout_width="38dp"
-                android:layout_height="41dp"
+                android:elevation="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageView6"
                 app:layout_constraintTop_toTopOf="@id/sadButton"
                 app:layout_constraintLeft_toLeftOf="@id/sadButton"
@@ -181,8 +173,9 @@
         />
         <ImageView
                 android:src="@drawable/happyface"
-                android:layout_width="38dp"
-                android:layout_height="41dp"
+                android:elevation="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageView7"
                 app:layout_constraintTop_toTopOf="@id/happyButton"
                 app:layout_constraintLeft_toLeftOf="@id/happyButton"
@@ -192,8 +185,9 @@
         />
         <ImageView
                 android:src="@drawable/frustratedface"
-                android:layout_width="38dp"
-                android:layout_height="41dp"
+                android:elevation="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageView9"
                 app:layout_constraintTop_toTopOf="@id/frustratedButton"
                 app:layout_constraintLeft_toLeftOf="@id/frustratedButton"
@@ -202,8 +196,9 @@
                 app:layout_constraintVertical_bias="0.5"/>
         <ImageView
                 android:src="@drawable/lonelyface"
-                android:layout_width="38dp"
-                android:layout_height="41dp"
+                android:elevation="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageView10"
                 app:layout_constraintTop_toTopOf="@id/lonelyButton"
                 app:layout_constraintLeft_toLeftOf="@id/lonelyButton"
@@ -213,8 +208,9 @@
         />
         <ImageView
                 android:src="@drawable/boredface"
-                android:layout_width="38dp"
-                android:layout_height="41dp"
+                android:elevation="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageView11"
                 app:layout_constraintTop_toTopOf="@id/boredButton"
                 app:layout_constraintLeft_toLeftOf="@id/boredButton"
@@ -223,8 +219,9 @@
                 app:layout_constraintVertical_bias="0.5 "/>
         <ImageView
                 android:src="@drawable/anxiousface"
-                android:layout_width="38dp"
-                android:layout_height="41dp"
+                android:elevation="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageView"
                 app:layout_constraintTop_toTopOf="@id/anxiousButton"
                 app:layout_constraintLeft_toLeftOf="@id/anxiousButton"
@@ -233,8 +230,9 @@
                 app:layout_constraintVertical_bias="0.5 "/>
         <ImageView
                 android:src="@drawable/lovedface"
-                android:layout_width="38dp"
-                android:layout_height="41dp"
+                android:elevation="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageView2"
                 app:layout_constraintTop_toTopOf="@id/lovedButton"
                 app:layout_constraintLeft_toLeftOf="@id/lovedButton"
@@ -244,8 +242,9 @@
         />
         <ImageView
                 android:src="@drawable/excitedface"
-                android:layout_width="38dp"
-                android:layout_height="41dp"
+                android:elevation="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="@id/excitedButton"
                 app:layout_constraintLeft_toLeftOf="@id/excitedButton"
@@ -255,8 +254,9 @@
         />
         <ImageView
                 android:src="@drawable/relaxedface"
-                android:layout_width="38dp"
-                android:layout_height="41dp"
+                android:elevation="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/imageView4"
                 app:layout_constraintTop_toTopOf="@id/relaxedButton"
                 app:layout_constraintLeft_toLeftOf="@id/relaxedButton"
