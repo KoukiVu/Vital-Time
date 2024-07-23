@@ -30,10 +30,10 @@
             android:layout_marginStart="8dp"
             android:text="Finished Todo"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/seekBar2"
-            app:layout_constraintStart_toEndOf="@+id/todo_title" app:layout_constraintEnd_toEndOf="@+id/todo_title"
+            app:layout_constraintStart_toEndOf="@+id/todo_title" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/todo_title"
-            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.529"/>
+            app:layout_constraintHorizontal_bias="1.0" app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintBottom_toBottomOf="@+id/todo_title"/>
     <ProgressBar
             android:layout_width="206dp"
             android:layout_height="21dp" android:id="@+id/seekBar2"
@@ -49,7 +49,8 @@
             app:layout_constraintStart_toEndOf="@+id/todo_title" app:layout_constraintTop_toTopOf="@+id/todo_title"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
 
-    >
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.057"
+            android:visibility="visible">
         <TextView
                 android:id="@+id/todo_hours"
 
@@ -71,7 +72,7 @@
         <TextView
                 android:text=" : "
                 android:layout_width="1dp"
-                android:layout_height="wrap_content" android:id="@+id/textView" android:layout_weight="1"
+                android:layout_height="wrap_content" android:id="@+id/todo_semicolon2" android:layout_weight="1"
         />
         <TextView
 

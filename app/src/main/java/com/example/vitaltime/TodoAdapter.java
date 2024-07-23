@@ -49,6 +49,8 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
             holder.hoursTextView.setVisibility(View.GONE);
             holder.secondsTextView.setVisibility(View.GONE);
             holder.todoTitle.setTextColor(Color.GRAY);
+            holder.Semi1.setVisibility(View.GONE);
+            holder.Semi2.setVisibility(View.GONE);
             if(!TodoVision){holder.todocheckBox.setClickable(false);
                 holder.deleteButton.setText("Delete");}
         }
@@ -59,6 +61,8 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
             holder.hoursTextView.setVisibility(View.VISIBLE);
             holder.secondsTextView.setVisibility(View.VISIBLE);
             holder.todoTitle.setTextColor(Color.BLACK);
+            holder.Semi1.setVisibility(View.VISIBLE);
+            holder.Semi2.setVisibility(View.VISIBLE);
             ProgressUpdater();
         }
         long currentTime = System.currentTimeMillis();
@@ -104,6 +108,8 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
         TextView hoursTextView;
         TextView minutesTextView;
         TextView secondsTextView;
+        TextView Semi1;
+                TextView Semi2;
         TodoViewHolder(View itemView, OnTodoItemListener OnTodoItemListener) {
             super(itemView);
             todoTitle = itemView.findViewById(R.id.todo_title);
@@ -113,6 +119,8 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
             hoursTextView = itemView.findViewById(R.id.todo_hours);
             minutesTextView = itemView.findViewById(R.id.todo_minutes);
             secondsTextView = itemView.findViewById(R.id.todo_seconds);
+            Semi1 = itemView.findViewById(R.id.todo_semicolon);
+            Semi2 = itemView.findViewById(R.id.todo_semicolon2);
         }
 
 

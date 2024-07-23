@@ -181,7 +181,7 @@ public class ToDoFragment extends Fragment implements TodoAdapter.OnTodoItemList
         todoAdapter.setTodos(todoManager.getFinishedTodos());
         todoAdapter.notifyDataSetChanged();
         binding.buttonAddTodo.setText("Completed Todos");
-        binding.buttonFirst.setText("Todos");
+        binding.buttonFirst.setText("Unfinished Todos");
     }
     @Override
     public void onDelete(int position) {
