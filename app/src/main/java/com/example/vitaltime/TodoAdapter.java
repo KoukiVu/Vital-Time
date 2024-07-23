@@ -1,23 +1,32 @@
 package com.example.vitaltime;
+import android.graphics.Color;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.TextView;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
+import android.widget.*;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.vitaltime.databinding.FragmentTodoBinding;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder> {
     private List<ToDoItem> todos;
-    private List<ToDoItem> FINTODOS;
     private OnTodoItemListener TodoListener;
+    private Handler handler = new Handler();
+    boolean TodoVision = true;
 
     public TodoAdapter(List<ToDoItem> todos, List<ToDoItem> fintodos, OnTodoItemListener TodoListener) {
         this.todos = todos;
-        FINTODOS = fintodos;
         this.TodoListener = TodoListener;
+
     }
     @NonNull
     @Override
@@ -30,12 +39,52 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
         ToDoItem todoItem = todos.get(position);
         holder.todoTitle.setText(todoItem.getToDoListName());
         holder.todocheckBox.setChecked(todoItem.isCompleted());
+
+        holder.progressBar.setMax(todoItem.getMaxProgress());
+        holder.progressBar.setProgress(todoItem.getProgress());
+
+        if(todoItem.isCompleted()){
+            holder.progressBar.setVisibility(View.GONE);
+            holder.minutesTextView.setVisibility(View.GONE);
+            holder.hoursTextView.setVisibility(View.GONE);
+            holder.secondsTextView.setVisibility(View.GONE);
+            holder.todoTitle.setTextColor(Color.GRAY);
+            if(!TodoVision){holder.todocheckBox.setClickable(false);
+                holder.deleteButton.setText("Delete");}
+        }
+
+        if(!todoItem.isCompleted()){
+            holder.progressBar.setVisibility(View.VISIBLE);
+            holder.minutesTextView.setVisibility(View.VISIBLE);
+            holder.hoursTextView.setVisibility(View.VISIBLE);
+            holder.secondsTextView.setVisibility(View.VISIBLE);
+            holder.todoTitle.setTextColor(Color.BLACK);
+            ProgressUpdater();
+        }
+        long currentTime = System.currentTimeMillis();
+        long remainingTime = todoItem.getEndTime().getTime()- currentTime;
+        long hours = (remainingTime/3600000);
+        long minutes = (remainingTime/60000)%60;
+        long seconds = (remainingTime/1000)%60;
+
+        String hoursString = String.format("%02d",hours);
+        String minutesString = String.format("%02d",minutes);
+        String secondsString = String.format("%02d",seconds);
+
+        holder.hoursTextView.setText(hoursString);
+        holder.minutesTextView.setText(minutesString);
+        holder.secondsTextView.setText(secondsString);
+
         holder.todocheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             todoItem.setCompleted(isChecked);
-            holder.deleteButton.setVisibility(isChecked ? View.VISIBLE : View.GONE);
 
+            holder.deleteButton.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            holder.hoursTextView.setVisibility(isChecked ? View.GONE : View.VISIBLE);
+            holder.minutesTextView.setVisibility(isChecked ? View.GONE : View.VISIBLE);
+            holder.secondsTextView.setVisibility(isChecked ? View.GONE : View.VISIBLE);
         });
         holder.deleteButton.setOnClickListener(view -> {
+
             if (TodoListener != null) {
                 TodoListener.onDelete(position);
             }
@@ -51,22 +100,117 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
         TextView todoTitle;
         CheckBox todocheckBox;
         Button deleteButton;
-
+        ProgressBar progressBar;
+        TextView hoursTextView;
+        TextView minutesTextView;
+        TextView secondsTextView;
         TodoViewHolder(View itemView, OnTodoItemListener OnTodoItemListener) {
             super(itemView);
             todoTitle = itemView.findViewById(R.id.todo_title);
             todocheckBox = itemView.findViewById(R.id.todo_checkbox);
             deleteButton = itemView.findViewById(R.id.todo_delete);
+            progressBar = itemView.findViewById(R.id.seekBar2);
+            hoursTextView = itemView.findViewById(R.id.todo_hours);
+            minutesTextView = itemView.findViewById(R.id.todo_minutes);
+            secondsTextView = itemView.findViewById(R.id.todo_seconds);
         }
 
-//HI
+
 
     }
+    public void setTodos(List<ToDoItem> todos) {
+        this.todos = todos;
+        SOrtToDoList();
+        notifyDataSetChanged();
+    }
+    public void SOrtToDoList(){
+        Collections.sort(todos, new Comparator<ToDoItem>() {
+            @Override
+            public int compare(ToDoItem o1, ToDoItem o2) {
+                return  o1.getEndTime().compareTo(o2.getEndTime());
+            }
+        });
+    }
+
     public interface OnTodoItemListener {
         void onDelete(int position);
     }
-    public List<ToDoItem> getFinishedTodos() {return FINTODOS;}
+
     public List<ToDoItem> getTodos() {
         return todos;
+    }
+    private void ProgressUpdater(){
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                long currentTime = System.currentTimeMillis();
+                for(ToDoItem ItEms: todos){
+                    if(ItEms.getEndTime() != null && ItEms.getStartTime() != null){
+                        ItEms.setProgress(ItEms.getProgress());
+                        long remainingTime = ItEms.getEndTime().getTime()- currentTime;
+                        long hours = (remainingTime/3600000);
+                        long minutes = (remainingTime/60000)%60;
+                        long seconds = (remainingTime/1000)%60;
+
+                        String hoursString = String.format("%02d",hours);
+                        String minutesString = String.format("%02d",minutes);
+                        String secondsString = String.format("%02d",seconds);
+
+                        ItEms.setHoursRemaining(hoursString);
+                        ItEms.setMinutesRemaining(minutesString);
+                        ItEms.setSecondsRemaining(secondsString);
+                    }
+                }
+                notifyDataSetChanged();
+                handler.postDelayed(this, 1000);
+            }
+        },1000);
+    }
+
+
+    private void animateFlip(TextView textView,String newText){
+        ScaleAnimation scaleAnimation = new ScaleAnimation(
+                1f,1f,0f,1f,
+                Animation.RELATIVE_TO_SELF,0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation.setDuration(300);
+        scaleAnimation.setFillAfter(true);
+        scaleAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                textView.setText(newText);
+                ScaleAnimation scaleAnimation = new ScaleAnimation(
+                        1f,1f,0f,1f,
+                        Animation.RELATIVE_TO_SELF,0.5f,
+                        Animation.RELATIVE_TO_SELF, 0.5f);
+                scaleAnimation.setDuration(300);
+                scaleAnimation.setFillAfter(true);
+                textView.startAnimation(scaleAnimation);
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+        textView.startAnimation(scaleAnimation);
+    }
+    public boolean showFinishedTodos(boolean show){
+        TodoVision = show;
+        if(!show){
+            for(ToDoItem ItEms: todos){
+                ItEms.setCompleted(true);
+            }
+        }
+        return show;
+    }
+
+    public boolean showTodos(boolean show){
+        TodoVision = show;
+        if(show){
+            for(ToDoItem ItEms: todos){
+                ItEms.setCompleted(false);
+            }
+        }
+        return show;
     }
 }
