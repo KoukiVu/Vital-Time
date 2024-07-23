@@ -1,17 +1,13 @@
 package com.example.vitaltime;
 
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.*;
 import android.widget.TextView;
 import android.widget.Button;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import com.example.vitaltime.databinding.MoodJournalBinding;
 
@@ -26,7 +22,7 @@ import yuku.ambilwarna.AmbilWarnaDialog;
 public class moodAndJournal extends Fragment {
 
     private MenuItem item;
-    int defaultColor = Color.BLACK;
+    int defaultColor = Color.WHITE;
 
     private MoodJournalBinding binding;
     private Button happyButton, sadButton, excitedButton, boredButton, frustratedButton, lovedButton,
@@ -62,7 +58,7 @@ public class moodAndJournal extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.edit_text_menu, menu);
+        inflater.inflate(R.menu.edit_menu, menu);
 
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -232,9 +228,9 @@ public class moodAndJournal extends Fragment {
                 TextView textView = binding.editTextDiaryContent;
                 Map<Button,Typeface> fonts = Fonts();
                 textView.setTypeface(fonts.get(button));
-                colorChange(button, Color.LTGRAY);
+                colorChange(button, Color.DKGRAY);
                 selectedButton = button;
-            } else {  colorChange(button, Color.DKGRAY); }
+            } else {  colorChange(button, Color.GRAY); }
         }
     }
 
