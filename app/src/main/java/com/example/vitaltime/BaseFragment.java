@@ -39,7 +39,7 @@ implements  BottomNavigationView.OnNavigationItemSelectedListener {
         super.onCreate(savedInstanceState);
         themeViewModel = new ViewModelProvider(requireActivity()).get(ThemeViewModel.class);
         setHasOptionsMenu(true);
-    }
+    }//
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
