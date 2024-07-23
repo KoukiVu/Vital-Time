@@ -2,26 +2,34 @@ package com.example.vitaltime;
 
 import android.icu.util.Calendar;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.*;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import com.example.vitaltime.databinding.FragmentJournalHomeBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import org.jetbrains.annotations.NotNull;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import com.google.firebase.database.DatabaseReference;
+import java.util.Map;
+
+import android.graphics.Color;
+import android.util.Log;
+import androidx.fragment.app.Fragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+import org.jetbrains.annotations.NotNull;
+
+
 
 public class JournalHome extends BaseFragment
         implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     BottomNavigationView bottomNavigationView;
 
+    private DatabaseReference rootDataBase;
     private FragmentJournalHomeBinding binding;
 
 
@@ -47,6 +55,11 @@ public class JournalHome extends BaseFragment
         if (getArguments() != null) {
             DiaryEntry receivedEntry = getArguments().getParcelable("newEntry");
             ((ApplicationData) requireActivity().getApplication()).addDiaryEntry(receivedEntry);
+            DiaryBook diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
+            rootDataBase = FirebaseDatabase.getInstance().getReference().child("Journal");
+            if (diaryBook != null) {
+                Map<String, Object> diaryBookMap = diaryBook.toMap();
+                rootDataBase.child("DiaryBook").setValue(diaryBookMap); }
         }
 
         DiaryBook diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
