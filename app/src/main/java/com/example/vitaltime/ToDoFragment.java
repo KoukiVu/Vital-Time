@@ -3,31 +3,24 @@ package com.example.vitaltime;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.app.TimePickerDialog;
-import android.view.*;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.CheckBox;
-import android.widget.Toast;
-import android.widget.TimePicker;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.navigation.fragment.NavHostFragment;
 import com.example.vitaltime.databinding.FragmentTodoBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ToDoFragment extends BaseFragment
-        implements TodoAdapter.OnTodoItemListener {
+public class ToDoFragment extends Fragment implements TodoAdapter.OnTodoItemListener {
 
-
-private FragmentTodoBinding binding;
+    private FragmentTodoBinding binding;
     private TodoAdapter.TodoViewHolder T_binding;
     private TodoManager todoManager;
     private TodoAdapter todoAdapter;
@@ -51,14 +44,21 @@ private FragmentTodoBinding binding;
         todoAdapter = new TodoAdapter(todoManager.getTodos(),todoManager.getFinishedTodos(),this);
         todoManager.SetAdapter(todoAdapter);
         binding.recyclerview.setAdapter(todoAdapter);
+        binding.buttonAddTodo.setVisibility(View.VISIBLE);
+        binding.CompletedTodos.setVisibility(View.GONE);
         binding.recyclerview.setLayoutManager(new LinearLayoutManager((getContext())));
         binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TodoSwitch = !TodoSwitch;
                 if(TodoSwitch){displayTodos();
-                    todoAdapter.showFinishedTodos(TodoSwitch);}
+                    binding.CompletedTodos.setVisibility(View.GONE);
+                    todoAdapter.showTodos(TodoSwitch);
+                    binding.buttonAddTodo.setVisibility(View.VISIBLE);
+                }
                 if(!TodoSwitch){FinishedTodos();
+                    binding.CompletedTodos.setVisibility(View.VISIBLE);
+                    binding.buttonAddTodo.setVisibility(View.GONE);
                     todoAdapter.showFinishedTodos(TodoSwitch);}
 
             }
@@ -181,7 +181,7 @@ private FragmentTodoBinding binding;
         todoAdapter.setTodos(todoManager.getFinishedTodos());
         todoAdapter.notifyDataSetChanged();
         binding.buttonAddTodo.setText("Completed Todos");
-        binding.buttonFirst.setText("Todos");
+        binding.buttonFirst.setText("Unfinished Todos");
     }
     @Override
     public void onDelete(int position) {
@@ -217,13 +217,8 @@ private FragmentTodoBinding binding;
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if(todoAdapter!= null){
-            todoAdapter.ShutDownExecutorService();
-        }
         binding = null;
     }
-
-
 
 }
 

@@ -5,7 +5,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".FirstFragment">
+        tools:context=".ToDoFragment"
+        >
+
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -44,8 +46,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:layout_constraintTop_toBottomOf="@+id/button_add_todo"
-                />
-
+                        tools:layout_editor_absoluteX="16dp" android:layout_marginTop="16dp"/>
+                <TextView
+                        android:id="@+id/CompletedTodos"
+                        android:text="Completed Todos"
+                        android:layout_width="143dp"
+                        android:layout_height="31dp"
+                        android:backgroundTint="@color/black"
+                        app:layout_constraintStart_toStartOf="@+id/button_add_todo"
+                        app:layout_constraintEnd_toEndOf="@+id/button_add_todo"
+                        app:layout_constraintVertical_bias="1.0"
+                        app:layout_constraintBottom_toTopOf="@+id/recyclerview"
+                        app:layout_constraintTop_toBottomOf="@+id/button_add_todo"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

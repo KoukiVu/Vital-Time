@@ -1,5 +1,4 @@
 package com.example.vitaltime;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -23,6 +22,7 @@ public class ToDoItem {
     private CountDownTimer timer;
     private String HoursRemaining;
     private String MinutesRemaining;
+    private String secondsRemaining;
     public ToDoItem(String toDoListName, Date startTime, Date endTime, Context context) {
         this.toDoListName = toDoListName;
         this.isCompleted = false;
@@ -33,6 +33,7 @@ public class ToDoItem {
         this.ProgressBar = new ProgressBar(context);
         this.HoursRemaining = "00";
         this.MinutesRemaining = "00";
+        secondsRemaining = "00";
         this.TodoButton.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -90,13 +91,23 @@ public class ToDoItem {
     public String getHoursRemaining() {
         return HoursRemaining;
     }
+
     public void setHoursRemaining(String hoursRemaining) {
         this.HoursRemaining = hoursRemaining;
     }
+
     public String getMinutesRemaining() {
         return MinutesRemaining;
     }
+
     public void setMinutesRemaining(String minutesRemaining) {
         this.MinutesRemaining = minutesRemaining;
+    }
+    public String getSecondsRemaining() {
+        return secondsRemaining;
+    }
+
+    public void setSecondsRemaining(String SecondsRemaining) {
+        this.secondsRemaining = SecondsRemaining;
     }
 }

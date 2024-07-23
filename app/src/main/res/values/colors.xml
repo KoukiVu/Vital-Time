@@ -3,4 +3,29 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="lightCyan">#66A7A7</color>
+
+    <color name="lightBase">#F2EFEB</color>
+    <color name="lightSecondary">#A0C9D9</color>
+    <color name="lightMid">#865A8C</color>
+    <color name="lightText">#3B3B40</color>
+
+    <color name="darkBase">#241226</color>
+    <color name="darkSecondary">#3D2540</color>
+    <color name="darkMid">#563C59</color>
+    <color name="darkText">#F238E6</color>
+
+    <color name="pastelBase">#D9ACF5</color>
+    <color name="pastelSecondary">#AAE3E2</color>
+    <color name="pastelPink">#FFCEFE</color>
+    <color name="pastelText">#3B3B40</color>
+    
+    <color name="coffeeBase">#D9B79A</color>
+    <color name="coffeeSecondary">#A6785D</color>
+    <color name="coffeeDark">#8C4242</color>
+    <color name="coffeeText">#262222</color>
+
+    <color name="midnightBase">#181740</color>
+    <color name="midnightSecondary">#302673</color>
+    <color name="midnightMid">#423F8C</color>
+    <color name="midnightText">#C8B0D9</color>
 </resources>
