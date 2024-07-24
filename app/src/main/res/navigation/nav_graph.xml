@@ -40,4 +40,6 @@
               android:label="Tasks" tools:layout="@layout/fragment_todo">
         <action android:id="@+id/action_toDoFragment_to_homeFragment" app:destination="@id/homeFragment"/>
     </fragment>
+    <fragment android:id="@+id/accountFragment" android:name="com.example.vitaltime.AccountFragment"
+              android:label="Account" tools:layout="@layout/fragment_account"/>
 </navigation>
