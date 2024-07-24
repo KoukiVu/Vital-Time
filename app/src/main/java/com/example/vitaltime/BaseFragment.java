@@ -82,6 +82,9 @@ implements  BottomNavigationView.OnNavigationItemSelectedListener {
         } else if (item.getItemId() == R.id.themes) {
             showThemesDialog(this);
             return true;
+        } else if (item.getItemId() == R.id.account) {
+            NavHostFragment.findNavController(this).navigate(R.id.accountFragment);
+            return true;
         } else
             return super.onOptionsItemSelected(item);
     }
@@ -232,7 +235,7 @@ implements  BottomNavigationView.OnNavigationItemSelectedListener {
         alertDialog.show();
     }
 
-    private void showLogoutDialog(Fragment parent) {
+    protected void showLogoutDialog(Fragment parent) {
         View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_logout, null);
         Button logoutBtn = dialogView.findViewById(R.id.confirm_button);
         Button cancelBtn = dialogView.findViewById(R.id.cancel_button);
