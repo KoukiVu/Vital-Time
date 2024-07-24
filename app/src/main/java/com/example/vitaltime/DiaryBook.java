@@ -3,27 +3,34 @@ package com.example.vitaltime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import com.google.firebase.database.DataSnapshot;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class DiaryBook {
-    private Map<Date,DiaryEntry> Diary;
+    private Map<Date, DiaryEntry> Diary;
+
     public DiaryBook() {
-        Diary = new HashMap<Date,DiaryEntry>();
+        Diary = new HashMap<Date, DiaryEntry>();
 
     }
-    public Map<Date,DiaryEntry> getDiary() {
+
+    public Map<Date, DiaryEntry> getDiary() {
         return Diary;
     }
+
     public void addDiaryEntry(DiaryEntry diaryEntry) {
-        Diary.put(diaryEntry.getDate(),diaryEntry);
+        Diary.put(diaryEntry.getDate(), diaryEntry);
     }
+
     public void removeDiaryEntry(DiaryEntry diaryEntry) {
         Diary.remove(diaryEntry.getDate());
     }
 
-    public DiaryEntry getEntryKey(Date date){
-        for (Map.Entry<Date,DiaryEntry> entry : Diary.entrySet()){
+    public DiaryEntry getEntryKey(Date date) {
+        for (Map.Entry<Date, DiaryEntry> entry : Diary.entrySet()) {
             Date EntryDate = entry.getKey();
-            if (EntryDate.getMonth() == date.getMonth() && EntryDate.getYear() == date.getYear() && EntryDate.getDate() == date.getDate()){
+            if (EntryDate.getMonth() == date.getMonth() && EntryDate.getYear() == date.getYear() && EntryDate.getDate() == date.getDate()) {
                 return entry.getValue();
             }
         }
@@ -36,5 +43,28 @@ public class DiaryBook {
             diaryBookMap.put(entry.getKey().toString(), entry.getValue().toMap());
         }
         return diaryBookMap;
+    }
+
+    public void updateFromFirebase(DataSnapshot dataSnapshot) {
+        Map<String, Object> diaryBookMap = (Map<String, Object>) dataSnapshot.getValue();
+        if (diaryBookMap != null) {
+            Diary.clear(); // Clear existing entries
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            for (Map.Entry<String, Object> entry : diaryBookMap.entrySet()) {
+                try {
+                    Date date = sdf.parse(entry.getKey());
+                    Map<String, Object> entryMap = (Map<String, Object>) entry.getValue();
+                    DiaryEntry diaryEntry = new DiaryEntry(
+                            new Date((Long) entryMap.get("date")),
+                            (String) entryMap.get("title"),
+                            (String) entryMap.get("mood"),
+                            (String) entryMap.get("content")
+                    );
+                    addDiaryEntry(diaryEntry);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

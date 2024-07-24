@@ -12,22 +12,26 @@ import com.example.vitaltime.databinding.FragmentJournalHomeBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import com.google.firebase.database.DatabaseReference;
+
+import com.google.firebase.database.*;
+
 import java.util.Map;
 
-import android.graphics.Color;
 import android.util.Log;
+
+
+import android.graphics.Color;
 import androidx.fragment.app.Fragment;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 import org.jetbrains.annotations.NotNull;
 
 
 
 public class JournalHome extends BaseFragment
-        implements BottomNavigationView.OnNavigationItemSelectedListener{
+        implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     BottomNavigationView bottomNavigationView;
+    DiaryBook diaryBook;
 
     private DatabaseReference rootDataBase;
     private FragmentJournalHomeBinding binding;
@@ -40,7 +44,7 @@ public class JournalHome extends BaseFragment
     }
 
     @Override
-    public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = com.example.vitaltime.databinding.FragmentJournalHomeBinding.inflate(inflater, container, false);
         bottomNavigationView = binding.bottomNavigationView;
         return binding.getRoot();
@@ -51,18 +55,21 @@ public class JournalHome extends BaseFragment
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
         //Adding a new saved DiaryEntry
         if (getArguments() != null) {
             DiaryEntry receivedEntry = getArguments().getParcelable("newEntry");
             ((ApplicationData) requireActivity().getApplication()).addDiaryEntry(receivedEntry);
-            DiaryBook diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
-            rootDataBase = FirebaseDatabase.getInstance().getReference().child("Journal");
+            diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
+            rootDataBase = FirebaseDatabase.getInstance().getReference().child("Diary");
             if (diaryBook != null) {
                 Map<String, Object> diaryBookMap = diaryBook.toMap();
-                rootDataBase.child("DiaryBook").setValue(diaryBookMap); }
+                rootDataBase.child("DiaryBook").setValue(diaryBookMap);
+            }
         }
-
         DiaryBook diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
+        retrieveDiaryBookFromFirebase();
+
 
         CalendarView calView = binding.calendarView;
         final Date[] dateDate = {new Date()};
@@ -138,14 +145,13 @@ public class JournalHome extends BaseFragment
         TextView titleText = binding.titleView;
         TextView dateText = binding.dateView;
 
-        if (selectedEntry != null){
+        if (selectedEntry != null) {
             titleText.setText(selectedEntry.getTitle());
             SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy");
             String formattedDate = sdf.format(selectedEntry.getDate());
             dateText.setText(formattedDate);
             entryCard.setClickable(true);
-        }
-        else {
+        } else {
             titleText.setText("No entry found");
             SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy");
             String formattedDate = sdf.format(dateDate);
@@ -154,4 +160,20 @@ public class JournalHome extends BaseFragment
         }
     }
 
+    private void retrieveDiaryBookFromFirebase() {
+        rootDataBase = FirebaseDatabase.getInstance().getReference().child("Diary");
+        rootDataBase.child("DiaryBook").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                diaryBook.updateFromFirebase(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle possible errors
+                Log.e("Firebase", "Error retrieving DiaryBook", databaseError.toException());
+            }
+        });
+
+    }
 }
