@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.navigation.fragment.NavHostFragment;
 import com.example.vitaltime.databinding.FragmentJournalHomeBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -56,7 +58,6 @@ public class JournalHome extends BaseFragment
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         //Adding a new saved DiaryEntry
         if (getArguments() != null) {
             DiaryEntry receivedEntry = getArguments().getParcelable("newEntry");
@@ -69,7 +70,11 @@ public class JournalHome extends BaseFragment
         }
 
         retrieveDiaryBookFromFirebase();
-        diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
+
+        if ( diaryBook == null) {
+            diaryBook = new DiaryBook();
+            diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
+        }
 
         CalendarView calView = binding.calendarView;
         final Date[] dateDate = {new Date()};
@@ -167,7 +172,6 @@ public class JournalHome extends BaseFragment
         Date currentDate = new Date();
         DiaryEntry currentEntry = diaryBook.getEntryKey(currentDate);
         setEntryCard(entryCard, currentEntry, currentDate);
-        // You may want to refresh other UI elements as well
     }
 
     private void retrieveDiaryBookFromFirebase() {
@@ -191,4 +195,5 @@ public class JournalHome extends BaseFragment
         });
 
     }
+
 }
