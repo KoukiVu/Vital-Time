@@ -1,8 +1,11 @@
 package com.example.vitaltime;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.*;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -29,10 +32,15 @@ import com.google.ai.client.generativeai.type.GenerateContentResponse;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import yuku.ambilwarna.AmbilWarnaDialog;
+
 import java.util.concurrent.Executor;
 
 
 public class moodAndJournal extends Fragment {
+
+    private MenuItem item;
+    int defaultColor = Color.WHITE;
 
     private MoodJournalBinding binding;
     private Button happyButton, sadButton, excitedButton, boredButton, frustratedButton, lovedButton,
@@ -46,6 +54,46 @@ public class moodAndJournal extends Fragment {
 
         binding = MoodJournalBinding.inflate(inflater, container, false);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_change_color) {
+            openColorPicker();
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.edit_menu, menu);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void openColorPicker() {
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(requireContext(), defaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+                // Do nothing on cancel
+            }
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                defaultColor = color;
+                binding.editTextDiaryContent.setTextColor(defaultColor);
+            }
+        });
+        colorPicker.show();
     }
 
 
@@ -156,9 +204,47 @@ public class moodAndJournal extends Fragment {
     }
 
     //Changes the color of a button
-    private void colorChange(Button button, int color) {
+    private void colorChange(Button button, boolean clicked) {
 
-        button.setBackgroundColor(color);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
+        int themeId = prefs.getInt("theme", R.style.Theme_VitalTime);
+
+        if (themeId == R.style.VitalTime_Light) {
+            button.setTextColor(getResources().getColor(R.color.lightText));
+            if (clicked)
+                button.setBackgroundColor(getResources().getColor(R.color.lightMid));
+            else
+                button.setBackgroundColor(getResources().getColor(R.color.lightSecondary));
+        }
+        else if (themeId == R.style.VitalTime_Coffee) {
+            button.setTextColor(getResources().getColor(R.color.coffeeText));
+            if (clicked)
+                button.setBackgroundColor(getResources().getColor(R.color.coffeeDark));
+            else
+                button.setBackgroundColor(getResources().getColor(R.color.coffeeSecondary));
+        }
+        else if (themeId == R.style.VitalTime_Dark) {
+            button.setTextColor(getResources().getColor(R.color.darkText));
+            if (clicked)
+                button.setBackgroundColor(getResources().getColor(R.color.darkMid));
+            else
+                button.setBackgroundColor(getResources().getColor(R.color.darkSecondary));
+        }
+        else if (themeId == R.style.VitalTime_Pastel) {
+            button.setTextColor(getResources().getColor(R.color.pastelText));
+            if (clicked)
+                button.setBackgroundColor(getResources().getColor(R.color.pastelSecondary));
+            else
+                button.setBackgroundColor(getResources().getColor(R.color.pastelPink));
+        }
+        else if (themeId == R.style.VitalTime_Midnight) {
+            button.setTextColor(getResources().getColor(R.color.midnightText));
+            if (clicked)
+                button.setBackgroundColor(getResources().getColor(R.color.black));
+            else
+                button.setBackgroundColor(getResources().getColor(R.color.midnightSecondary));
+        }
     }
 
     //Implementation of when a mood is clicked
@@ -168,9 +254,9 @@ public class moodAndJournal extends Fragment {
                 TextView textView = binding.editTextDiaryContent;
                 Map<Button,Typeface> fonts = Fonts();
                 textView.setTypeface(fonts.get(button));
-                colorChange(button, Color.LTGRAY);
+                colorChange(button, true);
                 selectedButton = button;
-            } else {  colorChange(button, Color.DKGRAY); }
+            } else {  colorChange(button, false); }
         }
     }
 
