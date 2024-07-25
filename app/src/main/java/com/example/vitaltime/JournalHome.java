@@ -67,9 +67,9 @@ public class JournalHome extends BaseFragment
                 rootDataBase.child("DiaryBook").setValue(diaryBookMap);
             }
         }
-        retrieveDiaryBookFromFirebase();
-        DiaryBook diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
 
+        retrieveDiaryBookFromFirebase();
+        diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
 
         CalendarView calView = binding.calendarView;
         final Date[] dateDate = {new Date()};
