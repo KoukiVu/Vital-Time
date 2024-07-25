@@ -188,6 +188,7 @@ int index = 0;
                     if(hasChanged){
                         notifyDataSetChanged();
                     }
+
                 }
 
                 handler.postDelayed(this, 1000);
