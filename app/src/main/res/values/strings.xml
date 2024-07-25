@@ -80,4 +80,8 @@
     <string name="temp_password">temp_password</string>
     <string name="enter_password">Please enter your password:</string>
     <string name="enter_new_password">Enter New Password</string>
+    <string name="delete">Delete</string>
+    <string name="delete_text">Are you sure you want to delete your account?</string>
+    <string name="delete_warning">(This action cannot be undone)</string>
+    <string name="confirm_login">Please confirm login to continue</string>
 </resources>
