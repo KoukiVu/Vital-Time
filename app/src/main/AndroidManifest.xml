@@ -19,7 +19,7 @@
                 android:windowSoftInputMode="adjustPan"
                 android:name=".MainActivity"
                 android:exported="true"
-                android:theme="@style/Theme.VitalTime.Dark">
+                android:theme="@style/VitalTime.Dark">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

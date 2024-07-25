@@ -34,6 +34,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_todo,parent,false);
         return new TodoViewHolder(view,TodoListener);
     }
+    //hi
     @Override
     public void onBindViewHolder(@NonNull TodoViewHolder holder,int position) {
         ToDoItem todoItem = todos.get(position);
