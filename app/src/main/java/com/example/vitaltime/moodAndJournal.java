@@ -1,8 +1,10 @@
 package com.example.vitaltime;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.*;
 import android.widget.TextView;
 import android.widget.Button;
@@ -216,9 +218,47 @@ public class moodAndJournal extends Fragment {
     }
 
     //Changes the color of a button
-    private void colorChange(Button button, int color) {
+    private void colorChange(Button button, boolean clicked) {
 
-        button.setBackgroundColor(color);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
+        int themeId = prefs.getInt("theme", R.style.Theme_VitalTime);
+
+        if (themeId == R.style.VitalTime_Light) {
+            button.setTextColor(getResources().getColor(R.color.lightText));
+            if (clicked)
+                button.setBackgroundColor(getResources().getColor(R.color.lightMid));
+            else
+                button.setBackgroundColor(getResources().getColor(R.color.lightSecondary));
+        }
+        else if (themeId == R.style.VitalTime_Coffee) {
+            button.setTextColor(getResources().getColor(R.color.coffeeText));
+            if (clicked)
+                button.setBackgroundColor(getResources().getColor(R.color.coffeeDark));
+            else
+                button.setBackgroundColor(getResources().getColor(R.color.coffeeSecondary));
+        }
+        else if (themeId == R.style.VitalTime_Dark) {
+            button.setTextColor(getResources().getColor(R.color.darkText));
+            if (clicked)
+                button.setBackgroundColor(getResources().getColor(R.color.darkMid));
+            else
+                button.setBackgroundColor(getResources().getColor(R.color.darkSecondary));
+        }
+        else if (themeId == R.style.VitalTime_Pastel) {
+            button.setTextColor(getResources().getColor(R.color.pastelText));
+            if (clicked)
+                button.setBackgroundColor(getResources().getColor(R.color.pastelSecondary));
+            else
+                button.setBackgroundColor(getResources().getColor(R.color.pastelPink));
+        }
+        else if (themeId == R.style.VitalTime_Midnight) {
+            button.setTextColor(getResources().getColor(R.color.midnightText));
+            if (clicked)
+                button.setBackgroundColor(getResources().getColor(R.color.black));
+            else
+                button.setBackgroundColor(getResources().getColor(R.color.midnightSecondary));
+        }
     }
 
     //Implementation of when a mood is clicked
@@ -228,9 +268,9 @@ public class moodAndJournal extends Fragment {
                 TextView textView = binding.editTextDiaryContent;
                 Map<Button,Typeface> fonts = Fonts();
                 textView.setTypeface(fonts.get(button));
-                colorChange(button, Color.DKGRAY);
+                colorChange(button, true);
                 selectedButton = button;
-            } else {  colorChange(button, Color.GRAY); }
+            } else {  colorChange(button, false); }
         }
     }
 
