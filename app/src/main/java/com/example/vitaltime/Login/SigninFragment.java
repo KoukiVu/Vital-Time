@@ -106,6 +106,7 @@ public class SigninFragment extends Fragment {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getActivity(), "Account created!",
                                             Toast.LENGTH_SHORT).show();
+                                    NavHostFragment.findNavController(SigninFragment.this).navigate(R.id.homeFragment);
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     try {
