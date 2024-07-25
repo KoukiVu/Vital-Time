@@ -34,6 +34,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_todo,parent,false);
         return new TodoViewHolder(view,TodoListener);
     }
+    //hi
     @Override
     public void onBindViewHolder(@NonNull TodoViewHolder holder,int position) {
         ToDoItem todoItem = todos.get(position);
@@ -152,24 +153,44 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
             @Override
             public void run() {
                 long currentTime = System.currentTimeMillis();
+boolean hasChanged = false;
+int index = 0;
                 for(ToDoItem ItEms: todos){
+                    hasChanged = false;
                     if(ItEms.getEndTime() != null && ItEms.getStartTime() != null){
                         ItEms.setProgress(ItEms.getProgress());
                         long remainingTime = ItEms.getEndTime().getTime()- currentTime;
+                        if(remainingTime < 0){remainingTime = 0;}
                         long hours = (remainingTime/3600000);
                         long minutes = (remainingTime/60000)%60;
                         long seconds = (remainingTime/1000)%60;
+
 
                         String hoursString = String.format("%02d",hours);
                         String minutesString = String.format("%02d",minutes);
                         String secondsString = String.format("%02d",seconds);
 
-                        ItEms.setHoursRemaining(hoursString);
-                        ItEms.setMinutesRemaining(minutesString);
-                        ItEms.setSecondsRemaining(secondsString);
+
+                        if (!hoursString.equals(ItEms.getHoursRemaining())) {
+                            ItEms.setHoursRemaining(hoursString);
+                            hasChanged = true;
+                        }
+                        if (!minutesString.equals(ItEms.getMinutesRemaining())) {
+                            ItEms.setMinutesRemaining(minutesString);
+                            hasChanged = true;
+                        }
+                        if (!secondsString.equals(ItEms.getSecondsRemaining())) {
+                            ItEms.setSecondsRemaining(secondsString);
+                            hasChanged = true;
+                        }
+                       index = todos.indexOf(ItEms);
                     }
+                    if(hasChanged){
+                        notifyDataSetChanged();
+                    }
+
                 }
-                notifyDataSetChanged();
+
                 handler.postDelayed(this, 1000);
             }
         },1000);

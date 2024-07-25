@@ -194,6 +194,7 @@
     </style>
 
 
+
     <!-- Calendar styles -->
     <style name="CalendarWeekDayTextAppearance.Light" parent="TextAppearance.MaterialComponents.Caption">
         <item name="android:textColor">@color/black</item>
