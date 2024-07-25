@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.*;
 import android.widget.TextView;
 import android.widget.Button;
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 // Imports for AI
 import com.google.ai.client.generativeai.GenerativeModel;
@@ -34,6 +36,9 @@ import java.util.concurrent.Executor;
 
 public class moodAndJournal extends Fragment {
 
+    private MenuItem item;
+    int defaultColor = Color.WHITE;
+
     private MoodJournalBinding binding;
     private Button happyButton, sadButton, excitedButton, boredButton, frustratedButton, lovedButton,
             relaxedButton, lonelyButton, anxiousButton;
@@ -46,6 +51,46 @@ public class moodAndJournal extends Fragment {
 
         binding = MoodJournalBinding.inflate(inflater, container, false);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_change_color) {
+            openColorPicker();
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.edit_menu, menu);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void openColorPicker() {
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(requireContext(), defaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+                // Do nothing on cancel
+            }
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                defaultColor = color;
+                binding.editTextDiaryContent.setTextColor(defaultColor);
+            }
+        });
+        colorPicker.show();
     }
 
 
@@ -169,8 +214,12 @@ public class moodAndJournal extends Fragment {
                 Map<Button,Typeface> fonts = Fonts();
                 textView.setTypeface(fonts.get(button));
                 colorChange(button, Color.LTGRAY);
+                TextView textView = binding.editTextDiaryContent;
+                Map<Button,Typeface> fonts = Fonts();
+                textView.setTypeface(fonts.get(button));
+                colorChange(button, Color.DKGRAY);
                 selectedButton = button;
-            } else {  colorChange(button, Color.DKGRAY); }
+            } else {  colorChange(button, Color.GRAY); }
         }
     }
 
@@ -250,6 +299,21 @@ public class moodAndJournal extends Fragment {
         }
     }
 
+
+    //Makes a map of the fonts
+    private Map<Button,Typeface> Fonts (){
+        Map<Button,Typeface> fonts = new HashMap<Button,Typeface>();
+        fonts.put(sadButton, getResources().getFont(R.font.cinema));
+        fonts.put(happyButton, getResources().getFont(R.font.comicpillow));
+        fonts.put(boredButton, getResources().getFont(R.font.lemonshake));
+        fonts.put(excitedButton, getResources().getFont(R.font.donperry));
+        fonts.put(frustratedButton, getResources().getFont(R.font.safetyswitch));
+        fonts.put(lovedButton, getResources().getFont(R.font.elatox));
+        fonts.put(lonelyButton, getResources().getFont(R.font.grunge));
+        fonts.put(relaxedButton, getResources().getFont(R.font.february));
+        fonts.put(anxiousButton, getResources().getFont(R.font.pakuintho));
+        return fonts;
+    }
 
     //Makes a map of the fonts
     private Map<Button,Typeface> Fonts (){

@@ -6,11 +6,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.*;
 import android.widget.Button;
-import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -40,7 +39,7 @@ implements  BottomNavigationView.OnNavigationItemSelectedListener {
         super.onCreate(savedInstanceState);
         themeViewModel = new ViewModelProvider(requireActivity()).get(ThemeViewModel.class);
         setHasOptionsMenu(true);
-    }
+    }//
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,6 +78,7 @@ implements  BottomNavigationView.OnNavigationItemSelectedListener {
         if (item.getItemId() == R.id.logout) {
             showLogoutDialog(this);
             return true;
+        // theme dialog functionality
         } else if (item.getItemId() == R.id.themes) {
             showThemesDialog(this);
             return true;
@@ -91,12 +91,66 @@ implements  BottomNavigationView.OnNavigationItemSelectedListener {
     private void showThemesDialog(Fragment parent) {
         View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_themes, null);
         final int[] selectedTheme = {-1};
+        int currentTheme;
+        if( themeViewModel.getCurrentTheme().getValue() != null)
+            currentTheme = themeViewModel.getCurrentTheme().getValue();
+        else
+            currentTheme = R.style.VitalTime_Pastel;
         Button confirmBtn = dialogView.findViewById(R.id.confirm_button);
         CardView lightTheme = dialogView.findViewById(R.id.lightCard);
         CardView darkTheme = dialogView.findViewById(R.id.darkCard);
         CardView pastelTheme = dialogView.findViewById(R.id.pastelCard);
         CardView coffeeTheme = dialogView.findViewById(R.id.coffeeCard);
         CardView midnightTheme = dialogView.findViewById(R.id.midnightCard);
+        int currentSelector;
+        if (currentTheme == R.style.VitalTime_Light)
+        {
+            lightTheme.setSelected(true);
+            darkTheme.setSelected(false);
+            pastelTheme.setSelected(false);
+            coffeeTheme.setSelected(false);
+            midnightTheme.setSelected(false);
+            currentSelector = R.drawable.light_card_selector;
+        } else if (currentTheme == R.style.VitalTime_Dark)
+        {
+            darkTheme.setSelected(true);
+            lightTheme.setSelected(false);
+            pastelTheme.setSelected(false);
+            coffeeTheme.setSelected(false);
+            midnightTheme.setSelected(false);
+            currentSelector = R.drawable.dark_card_selector;
+        } else if (currentTheme == R.style.VitalTime_Pastel)
+        {
+            pastelTheme.setSelected(true);
+            lightTheme.setSelected(false);
+            darkTheme.setSelected(false);
+            coffeeTheme.setSelected(false);
+            midnightTheme.setSelected(false);
+            currentSelector = R.drawable.pastel_card_selector;
+        } else if (currentTheme == R.style.VitalTime_Coffee)
+        {
+            coffeeTheme.setSelected(true);
+            lightTheme.setSelected(false);
+            darkTheme.setSelected(false);
+            pastelTheme.setSelected(false);
+            midnightTheme.setSelected(false);
+            currentSelector = R.drawable.coffee_card_selector;
+        } else
+        {
+            midnightTheme.setSelected(true);
+            lightTheme.setSelected(false);
+            darkTheme.setSelected(false);
+            pastelTheme.setSelected(false);
+            coffeeTheme.setSelected(false);
+            currentSelector = R.drawable.midnight_card_selector;
+        }
+
+        lightTheme.setBackground(ContextCompat.getDrawable(requireContext(), currentSelector));
+        darkTheme.setBackground(ContextCompat.getDrawable(requireContext(), currentSelector));
+        pastelTheme.setBackground(ContextCompat.getDrawable(requireContext(), currentSelector));
+        coffeeTheme.setBackground(ContextCompat.getDrawable(requireContext(), currentSelector));
+        midnightTheme.setBackground(ContextCompat.getDrawable(requireContext(), currentSelector));
+
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setView(dialogView);
         builder.setTitle("Themes");
@@ -106,31 +160,56 @@ implements  BottomNavigationView.OnNavigationItemSelectedListener {
         lightTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedTheme[0] = R.style.Theme_VitalTime;
+                selectedTheme[0] = R.style.VitalTime_Light;
+                lightTheme.setSelected(true);
+                darkTheme.setSelected(false);
+                pastelTheme.setSelected(false);
+                coffeeTheme.setSelected(false);
+                midnightTheme.setSelected(false);
             }
         });
         darkTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedTheme[0] = R.style.Theme_VitalTime_Dark;
+                selectedTheme[0] = R.style.VitalTime_Dark;
+                darkTheme.setSelected(true);
+                lightTheme.setSelected(false);
+                pastelTheme.setSelected(false);
+                coffeeTheme.setSelected(false);
+                midnightTheme.setSelected(false);
             }
         });
         pastelTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedTheme[0] = R.style.Theme_VitalTime_Pastel;
+                selectedTheme[0] = R.style.VitalTime_Pastel;
+                pastelTheme.setSelected(true);
+                lightTheme.setSelected(false);
+                darkTheme.setSelected(false);
+                coffeeTheme.setSelected(false);
+                midnightTheme.setSelected(false);
             }
         });
         coffeeTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedTheme[0] = R.style.Theme_VitalTime_Coffee;
+                selectedTheme[0] = R.style.VitalTime_Coffee;
+                coffeeTheme.setSelected(true);
+                lightTheme.setSelected(false);
+                darkTheme.setSelected(false);
+                pastelTheme.setSelected(false);
+                midnightTheme.setSelected(false);
             }
         });
         midnightTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedTheme[0] = R.style.Theme_VitalTime_Midnight;
+                selectedTheme[0] = R.style.VitalTime_Midnight;
+                midnightTheme.setSelected(true);
+                lightTheme.setSelected(false);
+                darkTheme.setSelected(false);
+                pastelTheme.setSelected(false);
+                coffeeTheme.setSelected(false);
             }
         });
 
