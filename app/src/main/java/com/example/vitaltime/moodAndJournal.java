@@ -213,10 +213,6 @@ public class moodAndJournal extends Fragment {
                 TextView textView = binding.editTextDiaryContent;
                 Map<Button,Typeface> fonts = Fonts();
                 textView.setTypeface(fonts.get(button));
-                colorChange(button, Color.LTGRAY);
-                TextView textView = binding.editTextDiaryContent;
-                Map<Button,Typeface> fonts = Fonts();
-                textView.setTypeface(fonts.get(button));
                 colorChange(button, Color.DKGRAY);
                 selectedButton = button;
             } else {  colorChange(button, Color.GRAY); }
@@ -297,22 +293,6 @@ public class moodAndJournal extends Fragment {
         } else {
             callback.onTitleGenerated(title);
         }
-    }
-
-
-    //Makes a map of the fonts
-    private Map<Button,Typeface> Fonts (){
-        Map<Button,Typeface> fonts = new HashMap<Button,Typeface>();
-        fonts.put(sadButton, getResources().getFont(R.font.cinema));
-        fonts.put(happyButton, getResources().getFont(R.font.comicpillow));
-        fonts.put(boredButton, getResources().getFont(R.font.lemonshake));
-        fonts.put(excitedButton, getResources().getFont(R.font.donperry));
-        fonts.put(frustratedButton, getResources().getFont(R.font.safetyswitch));
-        fonts.put(lovedButton, getResources().getFont(R.font.elatox));
-        fonts.put(lonelyButton, getResources().getFont(R.font.grunge));
-        fonts.put(relaxedButton, getResources().getFont(R.font.february));
-        fonts.put(anxiousButton, getResources().getFont(R.font.pakuintho));
-        return fonts;
     }
 
     //Makes a map of the fonts

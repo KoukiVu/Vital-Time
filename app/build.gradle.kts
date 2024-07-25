@@ -59,6 +59,7 @@ dependencies {
     // Required for streaming operations (to use `Publisher` from Guava Android)
     implementation("org.reactivestreams:reactive-streams:1.0.4")
 
+    implementation("com.github.yukuku:ambilwarna:2.0.1")
 
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
