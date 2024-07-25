@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:padding="16dp"
+        android:orientation="vertical">
+
+    <TextView
+            android:id="@+id/delete_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_text"
+            android:textSize="16sp" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/cancel_button"/>
+    <TextView
+            android:id="@+id/delete_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_warning"
+            android:textSize="16sp" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/delete_text"
+            app:layout_constraintBottom_toTopOf="@id/cancel_button"/>
+
+    <Button
+            android:id="@+id/confirm_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/delete_text"
+            app:layout_constraintLeft_toRightOf="@id/cancel_button"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="36dp"/>
+    <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/delete_text"
+            app:layout_constraintRight_toLeftOf="@id/confirm_button"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:layout_editor_absoluteX="16dp" android:layout_marginTop="36dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
