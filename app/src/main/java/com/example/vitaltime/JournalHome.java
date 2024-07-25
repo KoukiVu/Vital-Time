@@ -34,6 +34,7 @@ public class JournalHome extends BaseFragment
 
     BottomNavigationView bottomNavigationView;
     DiaryBook diaryBook;
+    String userID;
 
     private DatabaseReference rootDataBase;
     private FragmentJournalHomeBinding binding;
@@ -44,6 +45,8 @@ public class JournalHome extends BaseFragment
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         rootDataBase = FirebaseDatabase.getInstance().getReference().child("Diary");
+        userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
     }
 
     @Override
@@ -65,7 +68,7 @@ public class JournalHome extends BaseFragment
             diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
             if (diaryBook != null) {
                 Map<String, Object> diaryBookMap = diaryBook.toMap();
-                rootDataBase.child("DiaryBook").setValue(diaryBookMap);
+                rootDataBase.child(userID).setValue(diaryBookMap);
             }
         }
 
@@ -175,7 +178,7 @@ public class JournalHome extends BaseFragment
     }
 
     private void retrieveDiaryBookFromFirebase() {
-        rootDataBase.child("DiaryBook").addListenerForSingleValueEvent(new ValueEventListener() {
+        rootDataBase.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
