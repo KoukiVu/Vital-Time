@@ -171,7 +171,6 @@ public class JournalHome extends BaseFragment
     }
 
     private void retrieveDiaryBookFromFirebase() {
-        //This is where the error is, there is something wrong with getting the DiaryBook
         rootDataBase.child("DiaryBook").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
