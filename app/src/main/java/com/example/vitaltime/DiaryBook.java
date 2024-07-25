@@ -2,6 +2,7 @@ package com.example.vitaltime;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import com.google.firebase.database.DataSnapshot;
 import java.text.ParseException;
@@ -49,13 +50,13 @@ public class DiaryBook {
         Map<String, Object> diaryBookMap = (Map<String, Object>) dataSnapshot.getValue();
         if (diaryBookMap != null) {
             Diary.clear(); // Clear existing entries
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
             for (Map.Entry<String, Object> entry : diaryBookMap.entrySet()) {
                 try {
                     Date date = sdf.parse(entry.getKey());
                     Map<String, Object> entryMap = (Map<String, Object>) entry.getValue();
                     DiaryEntry diaryEntry = new DiaryEntry(
-                            new Date((Long) entryMap.get("date")),
+                            date,
                             (String) entryMap.get("title"),
                             (String) entryMap.get("mood"),
                             (String) entryMap.get("content")

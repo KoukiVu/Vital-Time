@@ -41,6 +41,7 @@ public class JournalHome extends BaseFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        rootDataBase = FirebaseDatabase.getInstance().getReference().child("Diary");
     }
 
     @Override
@@ -61,14 +62,13 @@ public class JournalHome extends BaseFragment
             DiaryEntry receivedEntry = getArguments().getParcelable("newEntry");
             ((ApplicationData) requireActivity().getApplication()).addDiaryEntry(receivedEntry);
             diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
-            rootDataBase = FirebaseDatabase.getInstance().getReference().child("Diary");
             if (diaryBook != null) {
                 Map<String, Object> diaryBookMap = diaryBook.toMap();
                 rootDataBase.child("DiaryBook").setValue(diaryBookMap);
             }
         }
-        DiaryBook diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
         retrieveDiaryBookFromFirebase();
+        DiaryBook diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
 
 
         CalendarView calView = binding.calendarView;
@@ -160,17 +160,33 @@ public class JournalHome extends BaseFragment
         }
     }
 
+    private void updateUI() {
+        // Update your UI components here, such as the CalendarView and CardView
+        CalendarView calView = binding.calendarView;
+        CardView entryCard = binding.CardView;
+        Date currentDate = new Date();
+        DiaryEntry currentEntry = diaryBook.getEntryKey(currentDate);
+        setEntryCard(entryCard, currentEntry, currentDate);
+        // You may want to refresh other UI elements as well
+    }
+
     private void retrieveDiaryBookFromFirebase() {
-        rootDataBase = FirebaseDatabase.getInstance().getReference().child("Diary");
+        //This is where the error is, there is something wrong with getting the DiaryBook
         rootDataBase.child("DiaryBook").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                diaryBook.updateFromFirebase(dataSnapshot);
+                if (dataSnapshot.exists()) {
+                    diaryBook = new DiaryBook();
+                    diaryBook.updateFromFirebase(dataSnapshot);
+                    ((ApplicationData) requireActivity().getApplication()).setDiaryBook(diaryBook);
+                    updateUI(); // Call a method to update the UI with the new data
+                } else {
+                    Log.d("Firebase", "No DiaryBook data found");
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle possible errors
                 Log.e("Firebase", "Error retrieving DiaryBook", databaseError.toException());
             }
         });
