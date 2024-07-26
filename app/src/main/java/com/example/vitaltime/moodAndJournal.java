@@ -237,6 +237,10 @@ public class moodAndJournal extends Fragment {
                 }
             }
         }
+        if (entry.getTextColor() != Color.BLACK) {
+            defaultColor = entry.getTextColor();
+            binding.editTextDiaryContent.setTextColor(defaultColor);
+        }
     }
 
     //Saves the current data
@@ -245,9 +249,11 @@ public class moodAndJournal extends Fragment {
             public void onTitleGenerated(String title) {
                 String content = String.valueOf(binding.editTextDiaryContent.getText());
                 String mood;
+                DiaryEntry newEntry;
                 if (selectedButton != null) { mood = getResources().getResourceEntryName(selectedButton.getId()); }
                 else { mood = null; }
-                DiaryEntry newEntry = new DiaryEntry(entryDate, title, mood, content);
+                if (defaultColor != Color.BLACK){ newEntry = new DiaryEntry(entryDate, title, mood, content, defaultColor); }
+                else { newEntry = new DiaryEntry(entryDate, title, mood, content); }
 
                 // Pass the data to the home fragment to save
                 Bundle bundle = new Bundle();

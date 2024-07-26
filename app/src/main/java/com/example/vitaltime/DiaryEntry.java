@@ -80,6 +80,7 @@ public class DiaryEntry implements Parcelable {
         entryMap.put("title", title);
         entryMap.put("mood", mood);
         entryMap.put("content", content);
+        entryMap.put("textColor", textColor);
         return entryMap;
     }
 }

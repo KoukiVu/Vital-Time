@@ -55,11 +55,13 @@ public class DiaryBook {
                 try {
                     Date date = sdf.parse(entry.getKey());
                     Map<String, Object> entryMap = (Map<String, Object>) entry.getValue();
+                    long textColor = (long) entryMap.get("textColor");
                     DiaryEntry diaryEntry = new DiaryEntry(
                             date,
                             (String) entryMap.get("title"),
                             (String) entryMap.get("mood"),
-                            (String) entryMap.get("content")
+                            (String) entryMap.get("content"),
+                            (int) textColor
                     );
                     addDiaryEntry(diaryEntry);
                 } catch (ParseException e) {
@@ -68,4 +70,5 @@ public class DiaryBook {
             }
         }
     }
+
 }
