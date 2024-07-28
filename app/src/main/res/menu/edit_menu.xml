@@ -5,8 +5,4 @@
             android:id="@+id/action_change_color"
             android:title="Text Color"
             app:showAsAction="never"/>
-    <item
-            android:id="@+id/font_size"
-            android:title="Font Size"
-            app:showAsAction="never"/>
 </menu>
