@@ -66,7 +66,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-storage")
 
-
-
+    // Required for color panel
+    implementation("com.github.yukuku:ambilwarna:2.0.1")
 
 }
