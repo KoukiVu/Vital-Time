@@ -3,7 +3,11 @@ package com.example.vitaltime;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.*;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Button;
 import androidx.annotation.NonNull;
@@ -16,13 +20,19 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
-import yuku.ambilwarna.AmbilWarnaDialog;
+
+// Imports for AI
+import com.google.ai.client.generativeai.GenerativeModel;
+import com.google.ai.client.generativeai.java.GenerativeModelFutures;
+import com.google.ai.client.generativeai.type.Content;
+import com.google.ai.client.generativeai.type.GenerateContentResponse;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
+import java.util.concurrent.Executor;
 
 
 public class moodAndJournal extends Fragment {
-
-    private MenuItem item;
-    int defaultColor = Color.WHITE;
 
     private MoodJournalBinding binding;
     private Button happyButton, sadButton, excitedButton, boredButton, frustratedButton, lovedButton,
@@ -38,50 +48,11 @@ public class moodAndJournal extends Fragment {
         return binding.getRoot();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_change_color) {
-            openColorPicker();
-            return true;
-        }
-        else {
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.edit_menu, menu);
-
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    private void openColorPicker() {
-        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(requireContext(), defaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
-            @Override
-            public void onCancel(AmbilWarnaDialog dialog) {
-                // Do nothing on cancel
-            }
-            @Override
-            public void onOk(AmbilWarnaDialog dialog, int color) {
-                defaultColor = color;
-                binding.editTextDiaryContent.setTextColor(defaultColor);
-            }
-        });
-        colorPicker.show();
-    }
-
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //The buttons
         {
             sadButton = view.findViewById(R.id.sadButton);
             happyButton = view.findViewById(R.id.happyButton);
@@ -104,6 +75,7 @@ public class moodAndJournal extends Fragment {
             buttonMoods.add(lonelyButton);
             buttonMoods.add(anxiousButton);
         }
+
         //Checks to see if there was a diary entry passed into the fragment
         if (getArguments() != null) {
             DiaryEntry receivedEntry = getArguments().getParcelable("selectedEntry");
@@ -114,11 +86,7 @@ public class moodAndJournal extends Fragment {
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DiaryEntry saveEntry = SaveDiaryEntry();
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("newEntry", saveEntry);
-                NavHostFragment.findNavController(moodAndJournal.this)
-                        .navigate(R.id.action_moodAndJournal_to_journalHome, bundle);
+                SaveDiaryEntry();
             }
         });
 
@@ -133,82 +101,54 @@ public class moodAndJournal extends Fragment {
                 @Override
                 public void onClick(View view) {
                     moodClicked(sadButton);
-                    TextView textView = binding.editTextDiaryContent;
-                    Typeface customFont = getResources().getFont(R.font.cinema);
-                    textView.setTypeface(customFont);
-
                 }
             });
             binding.happyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     moodClicked(happyButton);
-                    TextView textView = binding.editTextDiaryContent;
-                    Typeface customFont = getResources().getFont(R.font.comicpillow);
-                    textView.setTypeface(customFont);
                 }
             });
             binding.boredButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     moodClicked(boredButton);
-                    TextView textView = binding.editTextDiaryContent;
-                    Typeface customFont = getResources().getFont(R.font.lemonshake);
-                    textView.setTypeface(customFont);
                 }
             });
             binding.excitedButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     moodClicked(excitedButton);
-                    TextView textView = binding.editTextDiaryContent;
-                    Typeface customFont = getResources().getFont(R.font.donperry);
-                    textView.setTypeface(customFont);
                 }
             });
             binding.frustratedButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     moodClicked(frustratedButton);
-                    TextView textView = binding.editTextDiaryContent;
-                    Typeface customFont = getResources().getFont(R.font.safetyswitch);
-                    textView.setTypeface(customFont);
                 }
             });
             binding.lovedButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     moodClicked(lovedButton);
-                    TextView textView = binding.editTextDiaryContent;
-                    Typeface customFont = getResources().getFont(R.font.elatox);
-                    textView.setTypeface(customFont);
                 }
             });
             binding.lonelyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     moodClicked(lonelyButton);
-                    TextView textView = binding.editTextDiaryContent;
-                    Typeface customFont = getResources().getFont(R.font.grunge);
-                    textView.setTypeface(customFont);
                 }
             });
             binding.relaxedButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     moodClicked(relaxedButton);
-                    TextView textView = binding.editTextDiaryContent;
-                    Typeface customFont = getResources().getFont(R.font.february);
-                    textView.setTypeface(customFont);
                 }
             });
             binding.anxiousButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     moodClicked(anxiousButton);
-                    TextView textView = binding.editTextDiaryContent;
-                    Typeface customFont = getResources().getFont(R.font.pakuintho);
-                    textView.setTypeface(customFont);
                 }
             });
         }
@@ -228,9 +168,9 @@ public class moodAndJournal extends Fragment {
                 TextView textView = binding.editTextDiaryContent;
                 Map<Button,Typeface> fonts = Fonts();
                 textView.setTypeface(fonts.get(button));
-                colorChange(button, Color.DKGRAY);
+                colorChange(button, Color.LTGRAY);
                 selectedButton = button;
-            } else {  colorChange(button, Color.GRAY); }
+            } else {  colorChange(button, Color.DKGRAY); }
         }
     }
 
@@ -255,13 +195,61 @@ public class moodAndJournal extends Fragment {
     }
 
     //Saves the current data
-    private DiaryEntry SaveDiaryEntry() {
-        String title = String.valueOf(binding.entryTextView.getText());
-        String content = String.valueOf(binding.editTextDiaryContent.getText());
-        String mood = getResources().getResourceEntryName(selectedButton.getId());
-        DiaryEntry newEntry = new DiaryEntry(entryDate, title, mood, content);
-        return newEntry;
+    private void SaveDiaryEntry() {
+        CreateDiaryEntryTitle(new TitleGenerationCallback() {
+            public void onTitleGenerated(String title) {
+                String content = String.valueOf(binding.editTextDiaryContent.getText());
+                String mood;
+                if (selectedButton != null) { mood = getResources().getResourceEntryName(selectedButton.getId()); }
+                else { mood = null; }
+                DiaryEntry newEntry = new DiaryEntry(entryDate, title, mood, content);
+
+                // Pass the data to the home fragment to save
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("newEntry", newEntry);
+                NavHostFragment.findNavController(moodAndJournal.this)
+                        .navigate(R.id.action_moodAndJournal_to_journalHome, bundle);
+            }
+        });
     }
+
+    public interface TitleGenerationCallback {
+        void onTitleGenerated(String title);
+    }
+
+    private void CreateDiaryEntryTitle(TitleGenerationCallback callback) {
+        String content = String.valueOf(binding.editTextDiaryContent.getText());
+        TextView titleView = binding.entryTextView;
+        String title = titleView.getText().toString();
+
+        if (title.isEmpty()) {
+            // For text-only input, use the gemini-pro model
+            GenerativeModel gm = new GenerativeModel(/* modelName */ "gemini-pro", /* apiKey */ "AIzaSyBlslMky_9x02o6qtUxlbD0slpLVOSQX0Q");
+            GenerativeModelFutures model = GenerativeModelFutures.from(gm);
+            Content textContent = new Content.Builder().addText("Create a title with 20 characters or less for the text: " + content).build();
+
+            ListenableFuture<GenerateContentResponse> response = model.generateContent(textContent);
+            Futures.addCallback(response, new FutureCallback<GenerateContentResponse>() {
+                @Override
+                public void onSuccess(GenerateContentResponse result) {
+                    String resultText = result.getText();
+                    titleView.setText(resultText);
+                    callback.onTitleGenerated(resultText);
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("EEE MMMM d, yyyy");
+                    String formattedDate = sdf.format(entryDate);
+                    titleView.setText(formattedDate);
+                    callback.onTitleGenerated(formattedDate);
+                }
+            }, new Handler(Looper.getMainLooper())::post);
+        } else {
+            callback.onTitleGenerated(title);
+        }
+    }
+
 
     //Makes a map of the fonts
     private Map<Button,Typeface> Fonts (){

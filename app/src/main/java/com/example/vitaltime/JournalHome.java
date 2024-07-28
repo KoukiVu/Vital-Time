@@ -7,32 +7,45 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import com.example.vitaltime.databinding.FragmentJournalHomeBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import org.jetbrains.annotations.NotNull;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class JournalHome extends BaseFragment {
+import com.google.firebase.database.*;
 
+import java.util.Map;
+
+import android.util.Log;
+
+
+import android.graphics.Color;
+import androidx.fragment.app.Fragment;
+import com.google.firebase.auth.FirebaseAuth;
+import org.jetbrains.annotations.NotNull;
+
+
+
+public class JournalHome extends BaseFragment
+        implements BottomNavigationView.OnNavigationItemSelectedListener {
+
+    BottomNavigationView bottomNavigationView;
+    DiaryBook diaryBook;
+
+    private DatabaseReference rootDataBase;
     private FragmentJournalHomeBinding binding;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        rootDataBase = FirebaseDatabase.getInstance().getReference().child("Diary");
     }
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = com.example.vitaltime.databinding.FragmentJournalHomeBinding.inflate(inflater, container, false);
         bottomNavigationView = binding.bottomNavigationView;
         return binding.getRoot();
@@ -43,21 +56,31 @@ public class JournalHome extends BaseFragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        DiaryBook diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
+
+        //Adding a new saved DiaryEntry
+        if (getArguments() != null) {
+            DiaryEntry receivedEntry = getArguments().getParcelable("newEntry");
+            ((ApplicationData) requireActivity().getApplication()).addDiaryEntry(receivedEntry);
+            diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
+            if (diaryBook != null) {
+                Map<String, Object> diaryBookMap = diaryBook.toMap();
+                rootDataBase.child("DiaryBook").setValue(diaryBookMap);
+            }
+        }
+
+        retrieveDiaryBookFromFirebase();
+        diaryBook = ((ApplicationData) requireActivity().getApplication()).getDiaryBook();
 
         CalendarView calView = binding.calendarView;
-        final Date[] dateDate = {new Date(calView.getDate())};
+        final Date[] dateDate = {new Date()};
         final DiaryEntry[] selectedEntry = {null};
         CardView entryCard = binding.CardView;
 
         bottomNavigationView.setSelectedItemId(R.id.diary);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
-        //Adding a new saved DiaryEntry
-        if (getArguments() != null) {
-            DiaryEntry receivedEntry = getArguments().getParcelable("newEntry");
-            ((ApplicationData) requireActivity().getApplication()).addDiaryEntry(receivedEntry);
-        }
+        selectedEntry[0] = diaryBook.getEntryKey(dateDate[0]);
+        setEntryCard(entryCard, selectedEntry[0], dateDate[0]);
 
         //Creates a new DiaryEntry or opens an already existing Entry
         binding.buttonNewEntry.setOnClickListener(new View.OnClickListener() {
@@ -88,26 +111,10 @@ public class JournalHome extends BaseFragment {
                 Calendar selectedDate = Calendar.getInstance();
                 selectedDate.set(year, month, dayOfMonth);
 
-                TextView titleText = binding.titleView;
-                TextView dateText = binding.dateView;
-
                 dateDate[0] = new Date(selectedDate.getTimeInMillis());
                 selectedEntry[0] = diaryBook.getEntryKey(dateDate[0]);
 
-                if (selectedEntry[0] != null){
-                    titleText.setText(selectedEntry[0].getTitle());
-                    SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy");
-                    String formattedDate = sdf.format(selectedEntry[0].getDate());
-                    dateText.setText(formattedDate);
-                    entryCard.setClickable(true);
-                }
-                else {
-                    titleText.setText("No entry found");
-                    SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy");
-                    String formattedDate = sdf.format(dateDate[0]);
-                    dateText.setText(formattedDate);
-                    entryCard.setClickable(false);
-                }
+                setEntryCard(entryCard, selectedEntry[0], dateDate[0]);
 
             }
         });
@@ -116,11 +123,12 @@ public class JournalHome extends BaseFragment {
         entryCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("selectedEntry", selectedEntry[0]);
-                NavHostFragment.findNavController(JournalHome.this)
-                        .navigate(R.id.action_journalHome_to_moodAndJournal, bundle);
-
+                if (selectedEntry[0] != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("selectedEntry", selectedEntry[0]);
+                    NavHostFragment.findNavController(JournalHome.this)
+                            .navigate(R.id.action_journalHome_to_moodAndJournal, bundle);
+                }
             }
         });
 
@@ -130,5 +138,57 @@ public class JournalHome extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void setEntryCard(CardView entryCard, DiaryEntry selectedEntry, Date dateDate) {
+
+        TextView titleText = binding.titleView;
+        TextView dateText = binding.dateView;
+
+        if (selectedEntry != null) {
+            titleText.setText(selectedEntry.getTitle());
+            SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy");
+            String formattedDate = sdf.format(selectedEntry.getDate());
+            dateText.setText(formattedDate);
+            entryCard.setClickable(true);
+        } else {
+            titleText.setText("No entry found");
+            SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy");
+            String formattedDate = sdf.format(dateDate);
+            dateText.setText(formattedDate);
+            entryCard.setClickable(false);
+        }
+    }
+
+    private void updateUI() {
+        // Update your UI components here, such as the CalendarView and CardView
+        CalendarView calView = binding.calendarView;
+        CardView entryCard = binding.CardView;
+        Date currentDate = new Date();
+        DiaryEntry currentEntry = diaryBook.getEntryKey(currentDate);
+        setEntryCard(entryCard, currentEntry, currentDate);
+        // You may want to refresh other UI elements as well
+    }
+
+    private void retrieveDiaryBookFromFirebase() {
+        rootDataBase.child("DiaryBook").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    diaryBook = new DiaryBook();
+                    diaryBook.updateFromFirebase(dataSnapshot);
+                    ((ApplicationData) requireActivity().getApplication()).setDiaryBook(diaryBook);
+                    updateUI(); // Call a method to update the UI with the new data
+                } else {
+                    Log.d("Firebase", "No DiaryBook data found");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("Firebase", "Error retrieving DiaryBook", databaseError.toException());
+            }
+        });
+
     }
 }
