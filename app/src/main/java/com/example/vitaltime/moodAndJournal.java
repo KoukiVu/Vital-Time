@@ -8,7 +8,9 @@ import android.preference.PreferenceManager;
 import android.view.*;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -149,54 +151,82 @@ public class moodAndJournal extends Fragment {
                 @Override
                 public void onClick(View view) {
                     moodClicked(sadButton);
+                    TextView textView = binding.editTextDiaryContent;
+                    Typeface customFont = getResources().getFont(R.font.cinema);
+                    textView.setTypeface(customFont);
+
                 }
             });
             binding.happyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     moodClicked(happyButton);
+                    TextView textView = binding.editTextDiaryContent;
+                    Typeface customFont = getResources().getFont(R.font.comicpillow);
+                    textView.setTypeface(customFont);
                 }
             });
             binding.boredButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     moodClicked(boredButton);
+                    TextView textView = binding.editTextDiaryContent;
+                    Typeface customFont = getResources().getFont(R.font.lemonshake);
+                    textView.setTypeface(customFont);
                 }
             });
             binding.excitedButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     moodClicked(excitedButton);
+                    TextView textView = binding.editTextDiaryContent;
+                    Typeface customFont = getResources().getFont(R.font.donperry);
+                    textView.setTypeface(customFont);
                 }
             });
             binding.frustratedButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     moodClicked(frustratedButton);
+                    TextView textView = binding.editTextDiaryContent;
+                    Typeface customFont = getResources().getFont(R.font.safetyswitch);
+                    textView.setTypeface(customFont);
                 }
             });
             binding.lovedButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     moodClicked(lovedButton);
+                    TextView textView = binding.editTextDiaryContent;
+                    Typeface customFont = getResources().getFont(R.font.elatox);
+                    textView.setTypeface(customFont);
                 }
             });
             binding.lonelyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     moodClicked(lonelyButton);
+                    TextView textView = binding.editTextDiaryContent;
+                    Typeface customFont = getResources().getFont(R.font.grunge);
+                    textView.setTypeface(customFont);
                 }
             });
             binding.relaxedButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     moodClicked(relaxedButton);
+                    TextView textView = binding.editTextDiaryContent;
+                    Typeface customFont = getResources().getFont(R.font.february);
+                    textView.setTypeface(customFont);
                 }
             });
             binding.anxiousButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     moodClicked(anxiousButton);
+                    TextView textView = binding.editTextDiaryContent;
+                    Typeface customFont = getResources().getFont(R.font.pakuintho);
+                    textView.setTypeface(customFont);
                 }
             });
         }
